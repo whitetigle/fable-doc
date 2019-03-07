@@ -1,0 +1,82 @@
+### Fable doc table of contents
+
+- Introduction 
+     - What is Fable?
+     - Setup
+     - Tools
+     - Try Fable
+- New to F#? 
+     - Basic Types & Literals
+     - Functions
+     - Pipes
+     - Pattern Matching
+     - Collections
+     - High order functions
+     - Tuples
+     - Records & anonymous records
+     - Discriminated Unions
+     - Union Types
+     - Exceptions
+     - Classes & Inheritance
+     - Interfaces 
+     - Active Patterns
+- Fable for .NET users
+     - babel
+     - webpack
+     - js imports
+- Fable for JS users
+     - syntax cheatsheet
+     - converting from JS
+     - solution files 
+     - project files
+     - paket
+- Get started with...
+     - Browser
+     - Promises
+     - Regexes (?)
+     - Dates (?)
+     - Json with Thoth.Json
+     - Json with Fable.SimpleJson
+     - Http requests with Fetch 
+     - React
+          - Charting with Recharts
+          - Bulma Css with Fulma 
+     - Elm architecture: Elmish
+          - Hot Module Reload
+          - Browser
+          - Redux debugger
+          - React
+     - Node.js
+- Interop with Javascript
+     - Using external Javascript code
+     - Using external libraries
+     - Interop primer
+          - Dynamic typing
+          - Emit
+          - Type-safe javascript functions
+          - StringEnum
+          - Create object literals
+          - ts2fable
+- Tutorials
+     - Fable 101
+          - My first Fable app
+          - Shiny Colors with Fulma
+          - Material
+     - Fable Expert
+          - Fable & Type Providers
+               - Fable.JsonProvider
+          - Fable Compiler for dummies
+               - ?
+          - Full stack on .NET with the SAFE stack
+          - Fable on Node.js
+          - Fable with Express
+          - Contributing to Ionide
+     - Fable Next
+          - Fable on IBM Functions
+          - Fable on Raspberry PI
+          - Functional Game Development
+          - ...
+
+- Extra 
+     - FAQ
+     - Awesome resources
