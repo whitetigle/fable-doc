@@ -1,0 +1,25 @@
+{
+  "name": "fable-doc",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Fable documentation web site.",
+  "main": "index.js",
+  "scripts": {
+    "nacara": "nacara"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fable-compiler/fable-doc.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fable-compiler/fable-doc/issues"
+  },
+  "homepage": "https://github.com/fable-compiler/fable-doc#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "bulma": "^0.7.4",
+    "nacara": "^0.1.4"
+  }
+}

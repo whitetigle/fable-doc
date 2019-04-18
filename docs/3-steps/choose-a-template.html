@@ -1,0 +1,155 @@
+<html class="has-navbar-fixed-top"><head><title>Start a new project using templates · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><h2><a href="#start-a-new-project" aria-hidden="true" style="visibility:visible"><span class="anchor" id="start-a-new-project"></span>#</a> Start a new project</h2>
+<p>Now we're ready, let's start a new project using Fable!</p>
+<ul class="textual-steps">
+<li>
+<p><strong>Download latest Fable template</strong></p>
+<p>The most common way is to download a <em>template</em> using git. There are several templates ready to use.</p>
+<ul>
+<li>
+<p><strong>Browser project</strong></p>
+<ul>
+<li>
+<p>Simple HTML5 canvas and Browser DOM</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/browser</code></p>
+</li>
+<li>
+<p>More complex browser app with fetch &amp; promises &amp; json parsing</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/promises</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>React project</strong></p>
+<ul>
+<li>
+<p><a href="https://elm-lang.org/">Elm</a> like <a href="https://en.wikipedia.org/wiki/Single-page_application">single page application (SPA)</a> with React:</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/minimal</code></p>
+</li>
+<li>
+<p>Start a frontend app SPA using Bulma &amp; React</p>
+<p><code>git clone https://github.com/MangelMaxime/fulma-demo</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Node.js project</strong></p>
+<ul>
+<li>
+<p>Node.js app with fetch &amp; promises</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/nodejs</code></p>
+</li>
+<li>
+<p>Bundled Node.js app with fetch &amp; promises</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/nodejsbundle</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Advanced templates</strong></p>
+<ul>
+<li>
+<p>Browser app with fetch &amp; promises &amp; json parsing using .paket manager to resolve .NET dependencies</p>
+<p><code>git clone https://github.com/fable-compiler/fable2-samples/tree/master/withpaket</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Install JS dependencies</strong></p>
+<p>The JS dependencies are located in the package.json file. Since we're using JS libraries, we'll need to install them</p>
+<ul>
+<li>using npm: <code>npm install</code></li>
+<li>using yarn: <code>yarn install</code></li>
+</ul>
+<p>It will create a <code>node_modules</code> folder and a <code>package-lock.json</code> file. These should be ignored in a .gitignore file in order not to pollute your repository.</p>
+</li>
+<li>
+<p><strong>Build &amp; Run &amp; Update the app</strong></p>
+<p>Now we're done the dependencies, let's start our app in watch mode. Depending on the kind of template the instructions my differ.</p>
+<article class="message is-info">
+                <div class="message-body"><p>Always read the <code>README.md</code> file shipped in a template so that you always get things to work properly.</p>
+</div>
+</article>
+<p><strong>Web app</strong></p>
+<p>For a web app, unless advised, it will always be</p>
+<ul>
+<li>using npm: <code>npm start</code></li>
+<li>using yarn: <code>yarn start</code></li>
+</ul>
+<p>Then you'll be able to access your project from <a href="http://localhost:8080/">http://localhost:8080/</a>. So it's time to open this address in your favorite browser.</p>
+<p>If you now open the project with your favourite code editor, you can make some changes in the <code>App.fs</code> file located in the <code>src</code> folder. Save the changes and if compilation succeeds you should be able to see your changes directly in your browser.</p>
+<p><strong>Node.js app</strong></p>
+<p>For a Node.js app, unless advised, it will always be</p>
+<ul>
+<li>using npm: <code>npm build</code></li>
+<li>using yarn: <code>yarn build</code></li>
+</ul>
+<p>Then you'll be able see the generated JS files in the <code>build</code> folder.</p>
+<article class="message is-info">
+                <div class="message-body"><p>In general, check the <code>README.md</code> and <code>package.json</code> to get more information about the project and other build targets.</p>
+</div>
+</article>
+<p>Last but not least, if you wish to understand how all the things in the templates work, what is webpack, why do we use a <code>.fsproj</code> and so on, please consider reading the <a href="https://github.com/fable-compiler/fable-doc/wiki/Start-a-new-project-from-scratch">Blueprint of a common Fable project</a> which will guide you through the tools used and allow you to understand more easily Fable projects.</p>
+</li>
+</ul>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"></nav></div></div></div><script type="text/javascript">
+nacara.pageId = '3-steps/choose-a-template';
+                </script></div></body></html>

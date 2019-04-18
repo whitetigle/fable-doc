@@ -1,0 +1,74 @@
+<html class="has-navbar-fixed-top"><head><title>Foreword · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><h1><a href="#about-the-fable-compiler-project-goals-perspective" aria-hidden="true" style="visibility:hidden"><span class="anchor" id="about-the-fable-compiler-project-goals-perspective"></span></a> About the Fable compiler project. Goals &amp; perspective.</h1>
+<h2><a href="#foreword" aria-hidden="true" style="visibility:visible"><span class="anchor" id="foreword"></span>#</a> Foreword</h2>
+<p>Initiated by <a href="https://github.com/alfonsogarciacaro">Alfonso Garcia Caro</a> in 2016, the Fable project federates developers from very different fields, research, finance, Iot, to allow the F# in JavaScript projects.</p>
+<h3><a href="#community" aria-hidden="true" style="visibility:visible"><span class="anchor" id="community"></span>#</a> Community?</h3>
+<p>Fable wouldn't be what it is without the efforts of its community who gather here and there every few months during conferences and workshops.</p>
+<h3><a href="#open-source" aria-hidden="true" style="visibility:visible"><span class="anchor" id="open-source"></span>#</a> Open source?</h3>
+<p>The project is the result of a true Open Source mind set: partnership, pragmatism, creativity, sharing and having fun!</p>
+<h3><a href="#business-ready" aria-hidden="true" style="visibility:visible"><span class="anchor" id="business-ready"></span>#</a> Business ready?</h3>
+<p>And of course, since Fable creators use it every day in their production environments, what you're going to discover is a bullet-proof solution and ready for whatever JS project you've got in mind.</p>
+<h3><a href="#free" aria-hidden="true" style="visibility:visible"><span class="anchor" id="free"></span>#</a> Free?</h3>
+<p>Well since the major part of the development is done by people making a living using Fable, no need ask for money.</p>
+<h3><a href="#modern" aria-hidden="true" style="visibility:visible"><span class="anchor" id="modern"></span>#</a> Modern?</h3>
+<p>Fable compiler outputs your F# code to ES6 JavaScript. ES6 is the de facto industry standard.</p>
+<p>We hope you'll enjoy our if-it-compiles-it-works motto!</p>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"></nav></div></div></div><script type="text/javascript">
+nacara.pageId = 'introduction/foreword';
+                </script></div></body></html>

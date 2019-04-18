@@ -1,0 +1,96 @@
+<html class="has-navbar-fixed-top"><head><title>Use a Fable library · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><p></p>
+<h2><a href="#use-a-fable-library" aria-hidden="true" style="visibility:visible"><span class="anchor" id="use-a-fable-library"></span>#</a> Use a Fable library</h2>
+<p>In order to maximize the performances of the F# compiler, we often create libraries using <a href="https://www.nuget.org/">NuGet</a>, which is the defacto .NET package manager. Creating library most often implies creating a cross-platform &quot;.dll&quot; which then, offers the F# compiler the convenience of having to read symbols and not actual code, thus leading to faster compilation times.</p>
+<p>So we do need libraries. And Fable proposes a great variety of libraries ready for you to use like:</p>
+<ul>
+<li><a href="https://www.nuget.org/packages/Fable.Core/">Fable.Core</a>, which is required for every Fable project</li>
+<li><a href="https://www.nuget.org/packages/Fable.Browser.Dom/1.0.0-alpha-004">Fable.Browser.Dom</a>, for all your Dom need (window, documents)</li>
+<li><a href="https://www.nuget.org/packages?q=fable"><em>Other Fable packages...</em></a></li>
+</ul>
+<p>There are 2 ways to call Fable libraries:
+1 - Reference them directly in your project file
+2 - Use paket manager.</p>
+<h3><a href="#option-1-reference-a-library-in-your-project-file" aria-hidden="true" style="visibility:visible"><span class="anchor" id="option-1-reference-a-library-in-your-project-file"></span>#</a> Option 1: Reference a library in your project file</h3>
+<p>Just like <code>.fs</code> files, we reference libraries directly in the <code>.fsproj</code> file.</p>
+<p>We need to tell what library we need and what version we'd like to use. For instance for <code>Fable.Browser.Dom</code> version <code>1.0.0-alpha-004</code> we'll add the following node in the <code>.fsproj</code> file:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Fable.Browser.Dom&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;1.0.0-alpha-004&quot;</span><span style="color: #383A42"> /&gt;</span></code></pre>
+<p>Hence the standard format for a library:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;packageName&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;versionNumberString&quot;</span><span style="color: #383A42"> /&gt;</span></code></pre>
+<p>For instance here is a an <code>ItemGroup</code> with references for two libraries:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Fable.Core&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;2.1.0-alpha-002&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Fable.Browser.Dom&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;1.0.0-alpha-004&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span style="color: #383A42">&lt;/</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span></code></pre>
+<p>That's basically all you need to do because our build process will then automatically download the libraries for you and compile your code against them.</p>
+<h3><a href="#option-2-use-paket" aria-hidden="true" style="visibility:visible"><span class="anchor" id="option-2-use-paket"></span>#</a> Option 2: Use Paket!</h3>
+<p>The second way of adding libraries and often the most safe one in order to make sure libraries are compatible, is to use  the <a href="https://fsprojects.github.io/Paket/">paket</a> library manager. While it's not compulsory, it's in most cases a good choice for large projects.</p>
+<p>Using paket is clearly straightforward if you follow the <a href="https://fsprojects.github.io/Paket/getting-started.html">official documentation</a></p>
+<p>But in order to make things easier for you, we created a <a href="https://github.com/fable-compiler/fable2-samples/tree/master/withpaket">template</a>. This is a good companion while you read the paket doc.</p>
+<p>Usually getting started with paket takes only a few minutes.</p>
+<h3><a href="#important-considerations" aria-hidden="true" style="visibility:visible"><span class="anchor" id="important-considerations"></span>#</a> Important considerations</h3>
+<p>You can only use .NET libraries that comply to the following rules:</p>
+<ol>
+<li>Fable libraries</li>
+<li>Pure F# libraries with no .NET bindings</li>
+</ol>
+<p>The reason is simple: Fable targets JavaScript while .NET targets the .NET environment. But libraries maintainers will indicate that for you and you won't get lost.</p>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"><ul class="toc-headings"><div class="toc-label"><a href="#use-a-fable-library">Use a Fable library</a></div><ul class="toc-headings"><li><a href="#option-1-reference-a-library-in-your-project-file">Option 1: Reference a library in your project file</a></li><li><a href="#option-2-use-paket">Option 2: Use Paket!</a></li><li><a href="#important-considerations">Important considerations</a></li></ul></li></ul></nav></div></div></div><script type="text/javascript">
+nacara.pageId = 'your-fable-project/use-a-fable-library';
+                </script></div></body></html>

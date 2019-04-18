@@ -1,0 +1,113 @@
+<html class="has-navbar-fixed-top"><head><title>Fable in videos · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><p>Many people have been speaking at various conferences about Fable and related stacks. So grab a ☕️ and have enjoy these 🎥 and <a href="https://www.youtube.com/watch?v=pbqsjEF6Qpw">let's start right now with the famous song...</a></p>
+<h2><a href="#2018-fableconf" aria-hidden="true" style="visibility:visible"><span class="anchor" id="2018-fableconf"></span>#</a> 2018 FableConf</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=-Oc4xJivY78">Scaling Elmish Applications - Zaid Ajaj</a></li>
+<li><a href="https://www.youtube.com/watch?v=gQZrIGYN0ek">Becoming a full stack developer, a quest into the unknown - Gien Verschatse</a></li>
+<li><a href="https://www.youtube.com/watch?v=bW0ZQAofro8&amp;t=40s">Domain Driven UI with SAFE Stack - Roman Sachse</a></li>
+<li><a href="https://www.youtube.com/watch?v=iGOOommSuI4">Azure Functions Deep Dive - Sia</a></li>
+<li><a href="https://www.youtube.com/watch?v=9VJoaNoutm4&amp;t=1717s">React performance in a Fable world - Julien Roncaglia</a></li>
+<li><a href="https://www.youtube.com/watch?v=E2oVmA3QKpA&amp;t=482s">Event Sourcing with Azure Cosmos DB - Roman Provazník</a></li>
+<li><a href="https://www.youtube.com/watch?v=C3mh-YJmDps&amp;t=261s">Offline Progressive Web Apps with PouchDB - François Nicaise</a></li>
+<li><a href="https://www.youtube.com/watch?v=D6e6PRyzHgY">Azure Functions, Microsoft's Glue in Serverless Architectures - Jan Fellien</a></li>
+<li><a href="https://www.youtube.com/watch?v=uYjrwfWOflg&amp;t=45s">Build a game with Fable in 45 minutes - Tomasz Heimowski</a></li>
+<li><a href="https://www.youtube.com/watch?v=YpX5yhGrJkw">Data visualization with Fable - Evelina Gabasova</a></li>
+<li><a href="https://www.youtube.com/watch?v=ocLPOEa2DXc&amp;t=96s">Future of web development with F# - Krzysztof Cieślak</a></li>
+</ul>
+<h2><a href="#2018-misc" aria-hidden="true" style="visibility:visible"><span class="anchor" id="2018-misc"></span>#</a> 2018 Misc</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=50YhcG9qqQg">#fsharp #fsadvent Building a CPU Emulator with Fable 2.1</a></li>
+<li><a href="https://www.youtube.com/watch?v=ycUiRvJdreM">@NDC Oslo 2018: F# and Fable: re-think web development</a></li>
+<li><a href="https://www.youtube.com/watch?v=AlPmHsd1AWg">Data Science, F# and Fable</a></li>
+<li><a href="https://www.youtube.com/watch?v=33vHu1n5wFw">Write your Javascript-React-SPA in F# with Fable-Elmish</a></li>
+<li><a href="https://www.youtube.com/watch?v=c-LospcdmyU">The SAFE Stack: Rapid full stack F# development</a></li>
+<li><a href="https://www.youtube.com/watch?v=D0BQTXe-6CI">webinar - Crea una aplicación web con F# y Fable</a></li>
+<li><a href="https://www.youtube.com/watch?v=_jCwsmrd-mM">Live coding a classical game Minesweeper in F# using Fable</a></li>
+<li><a href="https://www.youtube.com/watch?v=LBekZt8QB4w">Lambda Days 2018 - Tomasz Heimowski - SAFE apps with F# web stack</a></li>
+</ul>
+<h2><a href="#2017-fableconf" aria-hidden="true" style="visibility:visible"><span class="anchor" id="2017-fableconf"></span>#</a> 2017 FableConf</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=hXzNCUUSw6Y">Thinking Feeling Acting agents • Indy M.</a></li>
+<li><a href="https://www.youtube.com/watch?v=1dJ-TlBr4Ro&amp;t=2s">Elmish: the foundation your Web or Native applications deserve • Eugene Tolmachev</a></li>
+<li><a href="https://www.youtube.com/watch?v=didWyHrdSKU">Building editor tooling with Fable • Krzysztof Cieślak</a></li>
+<li><a href="https://www.youtube.com/watch?v=5vnmvXuwzJ0">Behind the scenes of Fable: Babel • Sven Sauleau</a></li>
+<li><a href="https://www.youtube.com/watch?v=mU6iuyf7o9g">Hink: Write Web applications without CSS • Maxime Mangel</a></li>
+<li><a href="https://www.youtube.com/watch?v=KANNl-S0uwE&amp;t=3s">How Fable helps me to spend more time with my children • François Nicaise + Bonus</a></li>
+<li><a href="https://www.youtube.com/watch?v=ssKX7T3lNvw">Towards a new way of collaboration • Alfonso García-Caro</a></li>
+</ul>
+<h2><a href="#2017-misc" aria-hidden="true" style="visibility:visible"><span class="anchor" id="2017-misc"></span>#</a> 2017 Misc</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=iRDcpkphrKs">@NDC Oslo 2017: Conquer the JavaScript ecosystem with F# and Fable!</a></li>
+<li><a href="https://www.youtube.com/watch?v=hf0gepgb0Dc">@Microsoft 2017: Full Stack F# with Fable - Alfonso garcia Caro</a></li>
+<li><a href="https://www.youtube.com/watch?v=yTrcY8jGFmg">F# Hacking - Fable, Ionide, FSAC</a></li>
+<li><a href="https://www.youtube.com/watch?v=HEX-BPOgA_M">NET Conf 2017 Full Stack F# with Fable</a></li>
+<li><a href="https://www.youtube.com/watch?v=K-13gtMevxc">F#, Fable and Ionide hacking - adding profiler to VSCode</a></li>
+<li><a href="https://www.youtube.com/watch?v=M9xk7KkSY1A">Visualizing Olympic Medals with F# and Fable</a></li>
+<li><a href="https://www.youtube.com/watch?v=fmaPeUBWZuM">Modern app development with Fable and React Native</a></li>
+</ul>
+<h2><a href="#2016" aria-hidden="true" style="visibility:visible"><span class="anchor" id="2016"></span>#</a> 2016</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=iP-50fj06Eo">Fable: Beautiful F# to Javascript compilation</a></li>
+</ul>
+<blockquote>
+<p><em>Missing a link? Missing a name? Mispelled Title? Please open an issue!</em></p>
+</blockquote>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"></nav></div></div></div><script type="text/javascript">
+nacara.pageId = 'miscellaneous/fable-in-videos';
+                </script></div></body></html>

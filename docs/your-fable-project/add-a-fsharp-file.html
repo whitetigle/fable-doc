@@ -1,0 +1,115 @@
+<html class="has-navbar-fixed-top"><head><title>Add a new F# file · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><h1><a href="#add-a-new-f-file-to-your-project" aria-hidden="true" style="visibility:hidden"><span class="anchor" id="add-a-new-f-file-to-your-project"></span></a> Add a new F# file to your project</h1>
+<p>Since a F# project takes its roots from the .NET ecosystem, we need to follow a few obligatory steps in order to add a file to F# a Project.</p>
+<ul class="textual-steps">
+<li>
+<p><strong>Create the actual F# file</strong></p>
+<p>Like JS files end with <code>.js</code>, F# files end with <code>.fs</code>. So adding a new F# file, is just a matter of creating a file ending with <code>.fs</code> like <code>MyAwesomeFeature.fs</code></p>
+</li>
+<li>
+<p><strong>Add the file to the project</strong></p>
+<p>If your source files are located in the <code>src</code> folder, just open that folder. Here you will find a file ending with the <code>.fsproj</code>. This is the F# project file which describes the project using <code>XML</code> nodes.</p>
+<p>For instance, if you take the Browser template, in the src folder you will find an <code>App.fsproj</code> file:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">Project</span><span style="color: #383A42"> </span><span style="color: #986801">Sdk</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Microsoft.NET.Sdk&quot;</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">PropertyGroup</span><span style="color: #383A42">&gt;</span>
+<span>        </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">TargetFramework</span><span style="color: #383A42">&gt;</span><span>netstandard2.0</span><span style="color: #383A42">&lt;/</span><span style="color: #E45649">TargetFramework</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;/</span><span style="color: #E45649">PropertyGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>        </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;App.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;/</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>        </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Fable.Core&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;2.1.0-alpha-002&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>        </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">PackageReference</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;Fable.Browser.Dom&quot;</span><span style="color: #383A42"> </span><span style="color: #986801">Version</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;1.0.0-alpha-004&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;/</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span style="color: #383A42">&lt;/</span><span style="color: #E45649">Project</span><span style="color: #383A42">&gt;</span></code></pre>
+</li>
+</ul>
+<h2><a href="#how-does-it-work" aria-hidden="true" style="visibility:visible"><span class="anchor" id="how-does-it-work"></span>#</a> How does it work?</h2>
+<h3><a href="#your-files" aria-hidden="true" style="visibility:visible"><span class="anchor" id="your-files"></span>#</a> Your files</h3>
+<p>Your files must be added following the rule:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;path/to/my/File.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span></code></pre>
+<p>For instance, for an <code>App.fs</code> file located in the same folder with <code>App.fsproj</code></p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;App.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span></code></pre>
+<p>Let's add another file, <code>MyAwesomeFeature.fs</code>:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;MyAwesomeFeature.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;App.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span></code></pre>
+<p>Let's add another file, <code>Authentication.fs</code>, located in another folder <code>Shared</code> which is at the same depth than our <code>src</code> folder. Let's see the current state of our project tree:</p>
+<pre><code>myproject
+    |_ src
+        |_ App.fs
+        |_ MyAwesomeFeature.fs
+        |_ App.fsproj
+    |_ Shared
+        |_ Authentication.fs
+</code></pre>
+<p>This will result in:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;MyAwesomeFeature.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;../Shared/Authentication.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">Compile</span><span style="color: #383A42"> </span><span style="color: #986801">Include</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;App.fs&quot;</span><span style="color: #383A42"> /&gt;</span>
+<span style="color: #383A42">&lt;</span><span style="color: #E45649">ItemGroup</span><span style="color: #383A42">&gt;</span></code></pre>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"></nav></div></div></div><script type="text/javascript">
+nacara.pageId = 'your-fable-project/add-a-fsharp-file';
+                </script></div></body></html>

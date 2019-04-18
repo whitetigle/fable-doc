@@ -1,0 +1,80 @@
+<html class="has-navbar-fixed-top"><head><title>What is Fable? · Fable</title><link rel="stylesheet" type="text/css" href="/fable-doc/style.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/><script src="https://polyfill.app/api/polyfill?features=scroll-behavior"></script><script type="text/javascript">
+var nacara = {};
+                </script><script type="text/javascript">window.onload = function () {
+    // Initialize the menu state
+    // Set as active the menu for the current page
+    document
+        .querySelectorAll(`.menu [data-menu-id='${nacara.pageId}']`)
+        .forEach(function (menuItem) {
+            menuItem.classList.add("is-active")
+        });
+
+    // Collapse menu-group which doesn't concerns the current page
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            var parentChildren = Array.from(menuGroup.parentElement.children);
+            var subItems = parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+            var activeMenu =
+                    Array.from(subItems.children)
+                        .find(function (child) {
+                        return child.firstChild.classList.contains("is-active")
+                    });
+
+            if (activeMenu === undefined) {
+                menuGroup.classList.remove("is-expanded");
+                subItems.style.display = "none";
+            } else {
+                menuGroup.classList.add("is-expanded");
+                subItems.style.display = "block";
+            }
+        });
+
+    // Register listener to handle menu-group
+    document
+        .querySelectorAll(`.menu .menu-group`)
+        .forEach(function (menuGroup) {
+            menuGroup.addEventListener("click", function (ev) {
+                var parentChildren = Array.from(ev.target.parentElement.children);
+                var subItems =
+                    parentChildren.find(function (child) {
+                        return child.nodeName === "UL";
+                    });
+
+                if (ev.target.classList.contains("is-expanded")) {
+                    ev.target.classList.remove("is-expanded");
+                    subItems.style.display = "none";
+                } else {
+                    ev.target.classList.add("is-expanded");
+                    subItems.style.display = "block";
+                }
+
+            });
+        });
+};
+</script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .Net developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using templates</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><p></p>
+<h2><a href="#what-is-fable" aria-hidden="true" style="visibility:visible"><span class="anchor" id="what-is-fable"></span>#</a> What is Fable?</h2>
+<p>Fable is a solution that lets you write JavaScript applications with F#, a functional programming language.</p>
+<h3><a href="#what-is-fsharp" aria-hidden="true" style="visibility:visible"><span class="anchor" id="what-is-fsharp"></span>#</a> What is FSharp?</h3>
+<p>F# (pronounced f-sharp) is a strongly typed Functional programming language which offers many great features to build robust and maintable code such as:</p>
+<ul>
+<li>Lightweight syntax. It's very easy to get started with the F# language and it's often easy to read code from other people as well.</li>
+<li>Immutable by default but mutable if needed so you can interop with your JavaScript codebase without any problem.</li>
+<li>Rich types which let you represent easily your data or your domain.</li>
+<li>Powerful pattern matching to define complex behaviors.</li>
+<li>And so much more...</li>
+</ul>
+<p>F# is used in fields like <a href="https://fsharp.org/guides/data-science">Data Science</a>, <a href="https://fsharp.org/guides/machine-learning">Machine learning</a>, <a href="https://fsharp.org/guides/cloud">Cloud Programming</a>, <a href="http://www.tryfsharp.org/Learn/financial-computing">Financial Computing</a> and much more.</p>
+<h3><a href="#why-use-f-for-your-next-javascript-project" aria-hidden="true" style="visibility:visible"><span class="anchor" id="why-use-f-for-your-next-javascript-project"></span>#</a> Why use F# for your next JavaScript project?</h3>
+<p>After years of using JavaScript and OOP languages we felt it was a good time to use a mature language like F# to reduce the overall number of bugs in our applications, especially runtime bugs and thus build more robust applications.</p>
+<p>The fact that F# is a language of choice to model complex business models appeared to us a good fit to enhance code readability and lessen maintenance problems.</p>
+<p>So we built Fable, with the desire of giving everyone the best of these two worlds. We now offer you the ability to access the whole JS world from F#. Nothing less than that.</p>
+<p>Fable projects usage spans from React frontends to Serverless functions. It's commonly used for web development, mobile apps, servers, IoT, gaming, and many other fields.</p>
+<h3><a href="#next-steps" aria-hidden="true" style="visibility:visible"><span class="anchor" id="next-steps"></span>#</a> Next steps</h3>
+<p><a href="/fable-doc/3-steps/setup.html">&gt; Setup tools</a></p>
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"><ul class="toc-headings"><div class="toc-label"><a href="#what-is-fable">What is Fable?</a></div><ul class="toc-headings"><li><a href="#what-is-fsharp">What is FSharp?</a></li><li><a href="#why-use-f-for-your-next-javascript-project">Why use F# for your next JavaScript project?</a></li><li><a href="#next-steps">Next steps</a></li></ul></li></ul></nav></div></div></div><script type="text/javascript">
+nacara.pageId = '3-steps/discover';
+                </script></div></body></html>
