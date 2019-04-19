@@ -1068,9 +1068,9 @@ ms@^2.1.1:
   integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
 
 nacara@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/nacara/-/nacara-0.1.4.tgz#671559462fed60eda76b80ffaaff328b97c03c54"
-  integrity sha512-NnxlPg1CjPhlcIglRAYJOeZuCzGIZEsNAedsSgyU8hVTeD1F3wjAYLYj4oRfiYqLQsYwBuB1KsGpf8pKj9ZeZQ==
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/nacara/-/nacara-0.1.5.tgz#86ac6efbbc84b6733b929b5f842f992cc32e783e"
+  integrity sha512-2Qnh2URb5iSepj6WO4Z200H4AF7Af7qMmnEShj5PZdaz+x/n/i92RGVm6YT4+Otc77m249PrI652sLCa3BqvLg==
   dependencies:
     "@fortawesome/fontawesome-free" "^5.7.0"
     bulma "^0.7.2"

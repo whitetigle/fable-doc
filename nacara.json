@@ -53,7 +53,8 @@
             "communicate/numbers"
         ],
         "From .NET to Fable" : [
-            "dotnet/numbers"
+            "dotnet/numbers",
+            "dotnet/compatibility"
         ],
         "Miscellaneous": [
             "miscellaneous/official-samples",
