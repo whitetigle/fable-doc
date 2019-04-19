@@ -52,6 +52,9 @@
             "communicate/fable-from-js",
             "communicate/numbers"
         ],
+        "From .NET to Fable" : [
+            "dotnet/numbers"
+        ],
         "Miscellaneous": [
             "miscellaneous/official-samples",
             "miscellaneous/awesome-list",
