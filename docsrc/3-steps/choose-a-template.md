@@ -62,8 +62,8 @@ The JS dependencies are located in the package.json file. Since we're using JS l
 
 It will create a `node_modules` folder and a `package-lock.json` file. 
 
-*** A note about `package-lock.json`
-The `package-lock.json` file should be committed to ensure reproducible builds whenever anybody clones the repo.
+*** A note about lock files 
+Lock files, `package-lock.json` (if you're using npm) or `yarn.lock` (if your using yarn) hould be committed to ensure reproducible builds whenever anybody clones the repo.
 
 </li>
 
