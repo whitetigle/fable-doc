@@ -304,6 +304,21 @@ myLib.myMethod(Vertical, Horizontal)
 myLib.myMethod("vertical", "Horizontal")
 ```
 
+### Plain Old JavaScript Objects
+
+To create a plain JS object (aka POJO), use `createObj`:
+
+```fsharp
+open Fable.Core.JsInterop
+
+let data =
+    createObj [
+        "todos" ==> Storage.fetch()
+        "editedTodo" ==> None
+        "visibility" ==> "all"
+    ]
+```
+
 ### Dynamic typing: don't read this!
 
 Through the use of the tools we just described above, Fable guarantees you shouldn't run into nasty bugs because all the code will be compiled. It it does not compile it either means your js library does not exists or its path is not good or that your F# implementation laks something. We do rely on Fable on systems that are used 24/7, web apps or Node.js apps. We know that if it compiles, it means a 99% chance of running without any problems.
