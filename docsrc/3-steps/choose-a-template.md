@@ -49,6 +49,14 @@ The most common way is to download a *template* using git. There are several tem
 
         `git clone https://github.com/fable-compiler/fable2-samples/tree/master/withpaket`
 
+    * Browser app which features interoperability: calling our javascript code from Fable
+
+        `git clone https://github.com/fable-compiler/fable2-samples/tree/master/interop`
+
+    * Browser app which features interoperability: calling our Fable code from javascript
+
+        `git clone https://github.com/fable-compiler/fable2-samples/tree/master/interopFableFromJs`
+
 </li>
 
 <li>
