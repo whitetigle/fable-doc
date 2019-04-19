@@ -49,7 +49,8 @@
         ],
         "Communicate with Javascript": [
             "communicate/js-from-fable",
-            "communicate/fable-from-js"
+            "communicate/fable-from-js",
+            "communicate/numbers"
         ],
         "Miscellaneous": [
             "miscellaneous/official-samples",

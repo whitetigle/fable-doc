@@ -60,7 +60,10 @@ The JS dependencies are located in the package.json file. Since we're using JS l
 - using npm: `npm install`
 - using yarn: `yarn install`
 
-It will create a `node_modules` folder and a `package-lock.json` file. These should be ignored in a .gitignore file in order not to pollute your repository.
+It will create a `node_modules` folder and a `package-lock.json` file. 
+
+*** A note about `package-lock.json`
+The `package-lock.json` file should be committed to ensure reproducible builds whenever anybody clones the repo.
 
 </li>
 
