@@ -1,10 +1,8 @@
 ---
-title: Numbers
+title: Numeric Types
 ---
 
-[[toc]]
-
-# Numbers
+# Numeric Types
 
 In Fable, we use F# numeric types, which are all translated to JS Number (64-bit floating type), `decimal` included, at the exception of `int64`, `uint64` and `bigint`.
 
