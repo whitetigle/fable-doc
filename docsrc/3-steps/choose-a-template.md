@@ -49,6 +49,14 @@ The most common way is to download a *template* using git. There are several tem
 
         `git clone https://github.com/fable-compiler/fable2-samples/tree/master/withpaket`
 
+    * Browser app which features interoperability: calling our javascript code from Fable
+
+        `git clone https://github.com/fable-compiler/fable2-samples/tree/master/interop`
+
+    * Browser app which features interoperability: calling our Fable code from javascript
+
+        `git clone https://github.com/fable-compiler/fable2-samples/tree/master/interopFableFromJs`
+
 </li>
 
 <li>
@@ -60,7 +68,10 @@ The JS dependencies are located in the package.json file. Since we're using JS l
 - using npm: `npm install`
 - using yarn: `yarn install`
 
-It will create a `node_modules` folder and a `package-lock.json` file. These should be ignored in a .gitignore file in order not to pollute your repository.
+It will create a `node_modules` folder and a `package-lock.json` file. 
+
+*** A note about lock files 
+Lock files, `package-lock.json` (if you're using npm) or `yarn.lock` (if your using yarn) hould be committed to ensure reproducible builds whenever anybody clones the repo.
 
 </li>
 
