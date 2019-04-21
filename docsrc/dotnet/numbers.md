@@ -50,7 +50,7 @@ List.iter (printfn "%x") (randLst 7 1)
 
 The resulting printed list of pseudo-random numbers does not work in Fable:
 
-| Fable | .Net |
+| Fable | .NET |
 |-------:|------:|
 |1|1|
 |574a|574a
@@ -70,4 +70,4 @@ The resulting printed list of pseudo-random numbers does not work in Fable:
 ## Printing
 
 One small change from .NET in `printf`, `sprintf`, `ToString`. Negative signed integers are printed in hexadecimal format as sign + magnitude,
-in .Net they are printed as two's complement bit patterns.
+in .NET they are printed as two's complement bit patterns.

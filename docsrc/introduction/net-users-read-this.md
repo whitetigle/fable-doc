@@ -1,5 +1,5 @@
 ---
-title: Are you a .Net developer?
+title: Are you a .NET developer?
 ---
 
 ## Welcome to JavaScript!
