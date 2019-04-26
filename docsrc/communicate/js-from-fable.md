@@ -12,7 +12,7 @@ We'll describe both the safe way and the dynamic way and then it will be up to y
 
 ### Adding the JS library to the project
 
-The very first thing to do is add the library to our project. Since we always have a `package.json` file, we'll just add the wanted library to our project using either `npm install myAwesomeJSLibrary` or `yarn add myAwesomeJSLibrary`. The library will then be available in the `node_modules` folder that is automatically used by Fable.
+The very first thing to do is add the library to our project. Since we always have a `package.json` file, we'll just add the wanted library to our project using either `npm install myAwesomeJSLibrary`. The library will then be available in the `node_modules` folder that is automatically used by Fable.
 
 If your library is a custom one, just skip this step.
 

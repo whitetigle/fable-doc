@@ -66,12 +66,12 @@ The most common way is to download a *template* using git. There are several tem
 The JS dependencies are located in the package.json file. Since we're using JS libraries, we'll need to install them
 
 - using npm: `npm install`
-- using yarn: `yarn install`
 
 It will create a `node_modules` folder and a `package-lock.json` file. 
 
 *** A note about lock files 
-Lock files, `package-lock.json` (if you're using npm) or `yarn.lock` (if your using yarn) hould be committed to ensure reproducible builds whenever anybody clones the repo.
+
+Lock files like `package-lock.json`, if you're using npm should be committed to ensure reproducible builds whenever anybody clones the repo.
 
 </li>
 
@@ -87,10 +87,7 @@ Always read the `README.md` file shipped in a template so that you always get th
 
 **Web app**
 
-For a web app, unless advised, it will always be
-
-- using npm: `npm start`
-- using yarn: `yarn start`
+For a web app, unless advised, it will always be `npm start`
 
 Then you'll be able to access your project from [http://localhost:8080/](http://localhost:8080/). So it's time to open this address in your favorite browser.
 
@@ -98,10 +95,7 @@ If you now open the project with your favourite code editor, you can make some c
 
 **Node.js app**
 
-For a Node.js app, unless advised, it will always be
-
-- using npm: `npm build`
-- using yarn: `yarn build`
+For a Node.js app, unless advised, it will always be `npm build`
 
 Then you'll be able see the generated JS files in the `build` folder.
 

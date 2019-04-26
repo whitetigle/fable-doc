@@ -11,7 +11,7 @@ title: Setup
 In order to use Fable you will need the following tools:
 - [.NET Core SDK](https://dotnet.microsoft.com/download) which is needed to be able to work with F# files and F# dependencies
 - [Node.js](https://nodejs.org/en/), which is need to execute JS code
-- [Yarn](https://yarnpkg.com/en/) or [NPM](https://www.npmjs.com/) which are JS package dependencies managers
+- [NPM](https://www.npmjs.com/) which is a JS package dependencies managers
 
 ### Development tools
 
