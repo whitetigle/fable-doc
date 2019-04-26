@@ -20,7 +20,7 @@ Like JS files end with `.js`, F# files end with `.fs`. So adding a new F# file, 
 
 If your source files are located in the `src` folder, just open that folder. Here you will find a file ending with the `.fsproj`. This is the F# project file which describes the project using `XML` nodes.
 
-For instance, if you take the Browser template, in the src folder you will find an `App.fsproj` file:
+For instance, if you take the Browser sample, in the src folder you will find an `App.fsproj` file:
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>

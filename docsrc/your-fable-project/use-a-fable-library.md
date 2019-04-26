@@ -51,7 +51,7 @@ The second way of adding libraries and often the most safe one in order to make 
 
 Using paket is clearly straightforward if you follow the [official documentation](https://fsprojects.github.io/Paket/getting-started.html)
 
-But in order to make things easier for you, we created a [template](https://github.com/fable-compiler/fable2-samples/tree/master/withpaket). This is a good companion while you read the paket doc.
+But in order to make things easier for you, we created a [sample](https://github.com/fable-compiler/fable2-samples/tree/master/withpaket). This is a good companion while you read the paket doc.
 
 Usually getting started with paket takes only a few minutes.
 

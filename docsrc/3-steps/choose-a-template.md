@@ -1,5 +1,5 @@
 ---
-title: Start a new project using templates
+title: Start a new project using samples
 ---
 
 ## Start a new project
@@ -9,9 +9,9 @@ Now we're ready, let's start a new project using Fable!
 <ul class="textual-steps">
 <li>
 
-**Download latest Fable template**
+**Download a Fable sample**
 
-The most common way is to download a *template* using git. There are several templates ready to use.
+The most common way is to download a *sample* using git. There are several samples ready to use.
 
 * **Browser project**
 
@@ -43,7 +43,7 @@ The most common way is to download a *template* using git. There are several tem
 
         `git clone https://github.com/fable-compiler/fable2-samples/tree/master/nodejsbundle`
 
-* **Advanced templates**
+* **Advanced samples**
 
     * Browser app with fetch & promises & json parsing using .paket manager to resolve .NET dependencies
 

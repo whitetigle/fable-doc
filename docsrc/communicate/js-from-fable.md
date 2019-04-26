@@ -189,7 +189,7 @@ type Test() =
     member __.ParseRegex(pattern: string, ?ignoreCase: bool): Regex = jsNative
 ```
 
-The content of `Emit` will actually be parsed by [Babel](https://babeljs.io/) so it will still be validated somehow. However, it's not advised to abuse this method, as the code in the template will remain obscure to Fable and may prevent some optimizations.
+The content of `Emit` will actually be parsed by [Babel](https://babeljs.io/) so it will still be validated somehow. However, it's not advised to abuse this method, as the code in the sample will remain obscure to Fable and may prevent some optimizations.
 
 #### Let's do it! Use Emit
 
