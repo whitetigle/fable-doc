@@ -36,6 +36,9 @@ For instance, if you take the Browser sample, in the src folder you will find an
 </Project>
 ```
 
+
+**Please be aware that the in F#, file order is important.** For instance, if file `A.fs` calls `B.fs` then you should reference `B.fs` first. Some editor can do it for you though.
+
 </li>
 </ul>
 
