@@ -103,7 +103,7 @@ Then you'll be able see the generated JS files in the `build` folder.
 In general, check the `README.md` and `package.json` to get more information about the project and other build targets.
 :::
 
-Last but not least, if you wish to understand how all the things in the templates work, what is webpack, why do we use a `.fsproj` and so on, please consider reading the [Blueprint of a common Fable project](https://github.com/fable-compiler/fable-doc/wiki/Start-a-new-project-from-scratch) which will guide you through the tools used and allow you to understand more easily Fable projects.
+Last but not least, if you wish to understand how all the things in the templates work, what is [webpack](https://webpack.js.org/), why do we use a `.fsproj` and so on, please consider reading the [Blueprint of a common Fable project](https://github.com/fable-compiler/fable-doc/wiki/Start-a-new-project-from-scratch) which will guide you through the tools used and allow you to understand more easily Fable projects.
 
 </li>
 </ul>

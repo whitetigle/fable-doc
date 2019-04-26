@@ -4,7 +4,7 @@ title: Numbers
 
 # Numbers
 
-In Fable, we use F# numeric types, which are all translated to JS Number (64-bit floating type), `decimal` included, at the exception of `int64`, `uint64` and `bigint`.
+In Fable, we use F# numeric types, which are all translated to JS Number (64-bit floating type) at the exception of `int64`, `uint64` and `bigint`.
 
 ### Integers
 
@@ -16,7 +16,7 @@ In Fable, we use F# numeric types, which are all translated to JS Number (64-bit
 
 ### Float
 
-You can either use `float`, `double` or `decimal`. 
+You can either use `float`, `double`. 
 
 ### TypedArray
 
