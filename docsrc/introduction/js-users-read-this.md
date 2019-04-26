@@ -17,7 +17,7 @@ Voilà. Nothing else. We'll come to explanations later in the doc. But we promis
 
 **Welcome home!**
 
-- Fable transpiles F# to ES6 JavaScript, Fable uses the great Babel tool to do that
+- Fable transpiles F# to ES6 JavaScript, Fable uses the great [Babel](https://babeljs.io/) tool to do that
 - Fable allows the use of your favorite bundle tools like Rollup or Webpack. And it's not hard to use any other one.
 - JS Dependencies are listed in you common `package.json` file
 - Webpack configuration is often ready to use

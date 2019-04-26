@@ -23,9 +23,7 @@ After years of using JavaScript and OOP languages we felt it was a good time to 
 
 The fact that F# is a language of choice to model complex business models appeared to us a good fit to enhance code readability and lessen maintenance problems.
 
-So we built Fable, with the desire of giving everyone the best of these two worlds. We now offer you the ability to access the whole JS world from F#. Nothing less than that.
-
-Fable projects usage spans from React frontends to Serverless functions. It's commonly used for web development, mobile apps, servers, IoT, gaming, and many other fields.
+So we built Fable, with the desire of giving everyone the best of these two worlds. We now offer you the ability to access the whole JS world from F#. 
 
 ### Next steps
 [> Setup tools](/fable-doc/3-steps/setup.html)

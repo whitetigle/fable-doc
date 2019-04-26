@@ -18,7 +18,7 @@ If your library is a custom one, just skip this step.
 
 ### Type safety with Imports and Interfaces
 
-To use code from JS libraries first you need to import it into F#. For this Fables uses [ES2015 imports](https://developer.mozilla.org/en/docs/web/JavaScript/reference/statements/import), which can be later transformed to other JS module systems like `commonjs` or `amd` by Babel.
+To use code from JS libraries first you need to import it into F#. For this Fables uses [ES2015 imports](https://developer.mozilla.org/en/docs/web/JavaScript/reference/statements/import), which can be later transformed to other JS module systems like `commonjs` or `amd` by [Babel](https://babeljs.io/).
 
 There are two ways to declare ES2015 imports in the Fable: by using either the **Import attribute** or the **import expressions**. The `ImportAttribute` can decorate members, types or modules and works as follows:
 
@@ -189,7 +189,7 @@ type Test() =
     member __.ParseRegex(pattern: string, ?ignoreCase: bool): Regex = jsNative
 ```
 
-The content of `Emit` will actually be parsed by Babel so it will still be validated somehow. However, it's not advised to abuse this method, as the code in the template will remain obscure to Fable and may prevent some optimizations.
+The content of `Emit` will actually be parsed by [Babel](https://babeljs.io/) so it will still be validated somehow. However, it's not advised to abuse this method, as the code in the template will remain obscure to Fable and may prevent some optimizations.
 
 #### Let's do it! Use Emit
 
