@@ -17,12 +17,12 @@ Voilà. Nothing else. We'll come to explanations later in the doc. But we promis
 
 **Welcome home!**
 
-- Fable transpiles F# to ES6 JavaScript, Fable uses the great Babel tool to do that
-- Fable allows the use of your favorite bundle tools like Rollup or Webpack. And it's not hard to use any other one.
+- Fable transpiles F# to ES6 JavaScript, Fable uses the great [Babel](https://babeljs.io/) tool to do that
+- Fable allows the use of your favorite bundle tools like [Rollup](https://rollupjs.org/guide/en) or [webpack](https://webpack.js.org/). And it's not hard to use any other one.
 - JS Dependencies are listed in you common `package.json` file
-- Webpack configuration is often ready to use
+- [webpack](https://webpack.js.org/) configuration is often ready to use
 - Unit testing is available through the use of Mocha (but you can use another tool if you wish)
-- In most cases, preparing a Fable project only needs to call `yarn` or `npm install`
-- In most cases, building a Fable project only needs to call `yarn start` (but you can change this in the `package.json file`)
+- In most cases, preparing a Fable project only needs to call `npm install`
+- In most cases, building a Fable project only needs to call `npm start` (but you can change this in the `package.json file`)
 
 So since we're mainly using JavaScript tools, you won't be lost with Fable!
