@@ -6,19 +6,19 @@ title: Call JS from Fable
 
 ## Call JS from Fable
 
-Interoperability is a matter of trust between your statically typed F# code and your untyped dynamic JS code. In order to mitigate risks, Fable gives you several possibilities, amongst them: type safety. But sometimes it may sound more convenient to just call JS code in a more dynamic fashion although it often leads to runtime bugs which Fable is very good at decimating from the ground up.
+Interoperability is a matter of trust between your statically typed F# code and your untyped dynamic JS code. In order to mitigate risks, Fable gives you several possibilities, amongst them type safety through inteface contracts. Sometimes it may sound more convenient to just call JS code in a more dynamic fashion, although be aware by doing this potential bugs will not be discovered until runtime.
 
 We'll describe both the safe way and the dynamic way and then it will be up to you to decide. Let's start!
 
 ### Adding the JS library to the project
 
-The very first thing to do is add the library to our project. Since we always have a `package.json` file, we'll just add the wanted library to our project using either `npm install myAwesomeJSLibrary`. The library will then be available in the `node_modules` folder that is automatically used by Fable.
+The very first thing to do is add the library to our project. Since we always have a `package.json` file, we'll just add the wanted library to our project using either `npm install my-awesome-js-library`. The library will then be available in the `node_modules` folder.
 
-If your library is a custom one, just skip this step.
+> If your library is in a file, just skip this step.
 
 ### Type safety with Imports and Interfaces
 
-To use code from JS libraries first you need to import it into F#. For this Fables uses [ES2015 imports](https://developer.mozilla.org/en/docs/web/JavaScript/reference/statements/import), which can be later transformed to other JS module systems like `commonjs` or `amd` by [Babel](https://babeljs.io/).
+To use code from JS libraries first you need to import it into F#. For this Fables uses [ES2015 imports](https://developer.mozilla.org/en/docs/web/JavaScript/reference/statements/import), which can be later transformed to other JS module systems like `commonjs` or `amd` by [Babel](https://babeljs.io/docs/en/plugins#modules).
 
 There are two ways to declare ES2015 imports in the Fable: by using either the **Import attribute** or the **import expressions**. The `ImportAttribute` can decorate members, types or modules and works as follows:
 
@@ -36,7 +36,26 @@ There are two ways to declare ES2015 imports in the Fable: by using either the *
 // import Express from "express"
 ```
 
-If the value is globally accessible in JS, you can use the `Global` attribute with an optional name parameter instead;
+You can also use the following alias attributes:
+
+```fsharp
+open Fable.Core
+open Fable.Core.JsInterop
+
+// Same as Import("*", "my-module")
+[<ImportAll("my-module")>]
+let myModule: obj = jsNative
+
+// Same as Import("default", "my-module")
+[<Import("default", from="express")>]
+let myModuleDefaultExport: obj = jsNative
+
+// The member name is taken from decorated value, here `myFunction`
+[<ImportMember("my-module")>]
+let myFunction(x: int): int = jsNative
+```
+
+If the value is globally accessible in JS, you can use the `Global` attribute with an optional name parameter instead.
 
 ```fsharp
  let [<Global>] console: JS.Console = jsNative
@@ -44,9 +63,10 @@ If the value is globally accessible in JS, you can use the `Global` attribute wi
 
 #### Let's practice! 1st try!
 
-Now we've seen this, let's review the sample described in the [interop](https://github.com/fable-compiler/fable2-samples/tree/master/interop) sample
+Now that we've seen this, let's review the code in the [interop](https://github.com/fable-compiler/fable2-samples/tree/master/interop) sample
 
 Let's say we have an `alert.js` file that we'd like to use in our Fable project.
+
 ```js
 function triggerAlert(message) {
   alert(message);
@@ -72,16 +92,18 @@ In order to use this in our Fable code, let's create an `interface` that will mi
 As you can see the process is quite easy. The `I` in `IAlert` is not mandatory but it's a precious hint that we're going to use an interface. The `abstract` keyword only indicates that there's no actual implementation in F#. That's true, since we rely on the JavaScript one.
 
 Now let's use this:
+
 ```fsharp
-  [<Import("*", "path/to/alert.js")>]
+  [<ImportAll("path/to/alert.js")>]
   let mylib: IAlert = jsNative
 ```
 
-Here we use the `Import` directive, just like we described earlier.
+Here we use the `Import` attribute, just like we described earlier.
+
 - step 1: We specify the elements we wish to use. Here`*` means: "take everything that's been exported"
 - step 2: we set the path to our js library.
 - step 3: we create a let binding called `mylib` to map the js library.
-- step 4: we use the `jsNative` keyword to say that our `mylib` is just a placeholder for the JavaScript native implementation.
+- step 4: we use the `jsNative` keyword to say that `mylib` is just a placeholder for the JavaScript native implementation.
 
 Now we can use this:
 
@@ -89,7 +111,7 @@ Now we can use this:
 mylib.triggerAlert ("Hey I'm calling my js library from Fable > " + mylib.someString)
 ```
 
-If everything's working correctly, it should create an alert popup in your browser! (Of course this sample is intended for web apps, but you could do the same in a Node.js app.
+If everything's working correctly, it should create an alert popup in your browser! Of course this sample is intended for web apps, but you could do the same in a Node.js app.
 
 #### Let's practice! 2nd try!
 
@@ -113,7 +135,7 @@ we could use the same method we used with `alert.js`:
     abstract drawSmiley: unit -> unit
     abstract drawBubble: unit -> unit
 
-  [<Import("*", "path/to/Canvas.js")>]
+  [<ImportAll("path/to/Canvas.js")>]
   let mylib: ICanvas = jsNative
 
   mylib.drawSmiley() // etc..
@@ -126,8 +148,8 @@ open Fable.Core.JsInterop // needed to call interop tools
 
 module Canvas =
   // here we just import a member function from canvas.js called drawSmiley.
-  let drawSmiley: id:string -> unit = importMember  "path/to/Canvas.js"
-  let drawBubble: id:string -> unit = importMember  "path/to/Canvas.js"
+  let drawSmiley(id:string): unit = importMember "path/to/Canvas.js"
+  let drawBubble(id:string): unit = importMember "path/to/Canvas.js"
 
 Canvas.drawSmiley()
 ```
@@ -135,20 +157,21 @@ Canvas.drawSmiley()
 The result would be the same, but the philosophy is slightly different. That's basically up to you to make a choice 😉
 
 #### Miscelaneous import helpers
+
 There are other interop helpers you can use thanks to `Fable.Core.JsInterop`:
 
 ```fsharp
 open Fable.Core.JsInterop
 
 let buttons: obj = importAll "my-lib/buttons"
-// import * as buttons from "my-lib/buttons"
+// JS: import * as buttons from "my-lib/buttons"
 
 // It works for function declarations too
 let getTheme(x: int): IInterface = importDefault "my-lib"
-// import getTheme from "my-lib"
+// JS: import getTheme from "my-lib"
 
 let myString: string = importMember "my-lib"
-// import { myString } from "my-lib"
+// JS: import { myString } from "my-lib"
 
 // Use just `import` to make the member name explicit
 // as with the ImportAttribute
@@ -156,7 +179,7 @@ let aDifferentName: string = import "myString" "my-lib"
 // import { myString } from "my-lib"
 ```
 
-### Emit, your relatively safe friend
+### Emit, when F# is not enough
 
 You can use the `Emit` attribute to decorate a function. Every call to the function will then be replaced inline by the content of the attribute with the placeholders `$0, $1, $2...` replaced by the arguments. For example, the following code will generate JavaScript as seen below.
 
@@ -164,7 +187,7 @@ You can use the `Emit` attribute to decorate a function. Every call to the funct
 open Fable.Core
 
 [<Emit("$0 + $1")>]
-let add (x: int) (y: string): float = jsNative
+let add (x: int) (y: string): string = jsNative
 
 let result = add 1 "2"
 ```
@@ -189,104 +212,118 @@ type Test() =
     member __.ParseRegex(pattern: string, ?ignoreCase: bool): Regex = jsNative
 ```
 
-The content of `Emit` will actually be parsed by [Babel](https://babeljs.io/) so it will still be validated somehow. However, it's not advised to abuse this method, as the code in the sample will remain obscure to Fable and may prevent some optimizations.
+The content of `Emit` will actually be parsed by [Babel](https://babeljs.io/) so it will still be validated somehow. However, it's not advised to abuse this method, as the code won't be checked by the F# compiler.
 
 #### Let's do it! Use Emit
 
 Now let's work with Emit and take a new example with the following `MyClass.js`:
 
 ```js
-class MyClass {
-  constructor( value ) {
-    this.awesomeInteger = value;
+export default class MyClass {
+  // Note the constructors accepts an object
+  // with the `value` and `awesomeness` fields
+  constructor({ value, awesomeness }) {
+    this._value = value;
+    this._awesomeness = awesomeness;
   }
 
-  get awesomeInteger() {
-    return this._awesomeInteger;
+  get value() {
+    return this._value;
   }
 
-  set awesomeInteger( newValue ) {
-    this._awesomeInteger = newValue;
+  set value( newValue ) {
+    this._value = newValue;
   }
 
   isAwesome() {
-    return this._awesomeInteger === 42;
+    return this._value === this._awesomeness;
   }
 
   static getPI() {
     return Math.PI;
   }
 }
-
-export { MyClass as default}
 ```
- Let's list its members:
-- an `awesomeInteger` member which is an int with a getter and a setter
-- a method, `isAwesome`, that checks if our `awesomeInteger` equals 42
+
+Let's list its members:
+
+- a `value` member which returns the current value with a getter and a setter
+- a method, `isAwesome`, that checks if the current value equals the awesome value
 - a static method `getPi()` that just returns the value of `Math.PI`
 
 Here's the Fable implementation. Let's start with the members:
 
 ```fsharp
-type MyClassImplementation =
-  abstract awesomeInteger: int with get, set
+type MyClass<'T> =
+  // Note we specify this property has also a setter
+  abstract value: 'T with get, set
   abstract isAwesome: unit -> bool
 ```
 
-Now we need to be able to call our static function. We'll also fit our constructor here.
+Now we need to be able to call the static functions, including the constructor. So we write another interface for that:
 
 ```fsharp
-type MyClass =
-  [<Emit("new $0($1...)")>]
-  abstract Create : awesomeInteger:int ->  MyClassImplementation
+type MyClassStatic =
+  [<Emit("new $0({ value: $1, awesomeness: $2 })")>]
+  abstract Create: 'T * 'T -> MyClass<'T>
   abstract getPI : unit-> float
 ```
 
-Here we used the `Emit` attribute to call the contructor of `MyClass`. Last but not least, let call this:
+Here we used the `Emit` attribute to apply the JS `new` keyword and to build a JS object with the arguments, because that's what MyClass constructor accepts. Note that here `$0` represents the interface object (in this case, MyClass static).
+
+Last but not least, let's import MyClass:
 
 ```fsharp
-[<Import("default", "../public/MyClass.js")>] // 3
-let myClassStatic : MyClass = jsNative
+[<ImportDefault("../public/MyClass.js")>]
+let MyClass : MyClassStatic = jsNative
 ```
 
-Now it's possible to use our class. Let's see the complete code:
+Now it's possible to use our JS class. Let's see the complete code:
 
 ```fsharp
 
-type MyClassImplementation = // 1
-  abstract awesomeInteger: int with get, set
+type MyClass<'T> =
+  abstract value: 'T with get, set
   abstract isAwesome: unit -> bool
 
-type MyClass = // 2
-  [<Emit("new $0($1...)")>]
-  abstract Create : awesomeInteger:int ->  MyClassImplementation //= jsNative  // takes a string parameter and does not return anything
+type MyClassStatic =
+  [<Emit("new $0({ value: $1, awesomeness: $2 })")>]
+  abstract Create: 'T * 'T -> MyClass<'T>
   abstract getPI : unit-> float
 
-[<Import("default", "../public/MyClass.js")>] // 3
-let myClassStatic : MyClass = jsNative
+[<ImportDefault("../public/MyClass.js")>]
+let MyClass : MyClassStatic = jsNative
 
-// let's make our object mutable to be able to change its members
-let mutable myObject = myClassStatic.Create 40
+let myObject = MyClass.Create(40, 42)
 
 // using getter
-let whatDoIget = myObject.awesomeInteger // using getter
+let whatDoIget = myObject.value // using getter
 mylib.triggerAlert ("Hey I'm calling my js class from Fable. It gives " + (string whatDoIget))
 
 // using setter
-myObject.awesomeInteger <- 42
-mylib.triggerAlert ("Now it's better. It gives " + (string myObject.awesomeInteger))
+myObject.value <- 42
+mylib.triggerAlert ("Now it's better. It gives " + (string myObject.value))
 
 // calling member function
 mylib.triggerAlert ("Isn't it awesome? " + (string (myObject.isAwesome())))
 
 // call our static function
-mylib.triggerAlert ("PI is " + (string (myClassStatic.getPI())))
+mylib.triggerAlert ("PI is " + (string (MyClass.getPI())))
 ```
 
-### StringEnum, Enums compiled to strings!
-Like TypeScript where it's possible to define String Literal Types which are similar to enumerations with an underlying string value. Fable allows the same feature by using union types and the StringEnum attribute. These union types must not have any data fields as they will be compiled to a string matching the name of the union case.
+It's possible to combine the `Import` and `Emit` attributes. So we can import and build MyClass in one go. Note that in this case `$0` is replaced by the imported element:
 
-By default, the compiled string will have the first letter lowered. If you want to prevent this or use a different text than the union case name, use the CompiledName attribute:
+```fsharp
+[<ImportDefault("../public/MyClass.js")>]
+[<Emit("new $0({ value: $1, awesomeness: $2 })")>]
+let createMyClass(value: 'T, awesomeness: 'T) : MyClass<'T> = jsNative
+```
+
+### StringEnum: Union types compiled to strings!
+
+In TypeScript is possible to define [String Literal Types](https://mariusschulz.com/blog/string-literal-types-in-typescript) which are similar to enumerations with an underlying string value. Fable allows the same feature by using union types and the `StringEnum` attribute. These union types must not have any data fields as they will be compiled to a string matching the name of the union case.
+
+By default, the compiled string will have the first letter lowered. If you want to prevent this or use a different text than the union case name, use the `CompiledName` attribute:
 
 ```fsharp
 open Fable.Core
@@ -314,47 +351,72 @@ open Fable.Core.JsInterop
 let data =
     createObj [
         "todos" ==> Storage.fetch()
-        "editedTodo" ==> None
+        "editedTodo" ==> Option<Todo>.None
         "visibility" ==> "all"
     ]
 ```
 
-### Call Interfaces
+A similar effect can be achieved with the new F# [anonymous records](https://devblogs.microsoft.com/dotnet/announcing-f-4-6-preview/):
+
+```
+let data =
+    {| todos = Storage.fetch()
+       editedTodo = Option<Todo>.None
+       visibility = "all" |}
+```
+
 You can also create a JS object from an interface by using `createEmpty` and then assigning manually:
 
 ```fsharp
 type IMyInterface =
     abstract foo: string with get, set
     abstract bar: float with get, set
+    abstract baz: int option with get, set
 
 let x = createEmpty<IMyInterface> // var x = {}
 x.foo <- "abc"                    // x.foo = "abc"
 x.bar <- 8.5                      // val.bar = 8.5
 ```
 
+Since fable-compiler 2.3.6, when using the dynamic cast operator `!!` to cast an anonymous record to an interface, Fable will raise a warning if the fields in the anonymous don't match those of the interface. Use this feature only to interop with JS, in F# code the proper way to instantiate an interface without an implementing type is an [object expression](https://fsharpforfunandprofit.com/posts/object-expressions/).
+
+```fsharp
+// Warning, "foo" must be a string
+let x: IMyInterface = !!{| foo = 5; bar = 4.; baz = Some 0 |}
+
+// Warning, "bar" field is missing
+let y: IMyInterface = !!{| foo = "5"; bAr = 4.; baz = Some 0 |}
+
+// Ok, "baz" can be missing because it's optional
+let z: IMyInterface = !!{| foo = "5"; bar = 4. |}
+```
+
 ### Dynamic typing: don't read this!
 
-Through the use of the tools we just described above, Fable guarantees you shouldn't run into nasty bugs because all the code will be compiled. It it does not compile it either means your js library does not exists or its path is not good or that your F# implementation laks something. We do rely on Fable on systems that are used 24/7, web apps or Node.js apps. We know that if it compiles, it means a 99% chance of running without any problems.
+Through the use of the tools we just described above, Fable guarantees you shouldn't run into nasty bugs (as long as the interface contracts are correct) because all the code will be checked by the compiler. If it does not compile it either means your JS library does not exists or its path is not good or that your F# implementation lacks something. We do rely on Fable on systems that are used 24/7, web apps or Node.js apps. We know that if it compiles, it means a 99% chance of running without any problems.
 
-Our motto is: `If it compiles, it works!`
+Our motto is: "If it compiles, it works!"
 
-Still, like we stated, **interop is a question of trust**. If you trust your js code and F# code, then maybe it's ok to do things together without further checks. Maybe.
+Still, like we stated, **interop is a question of trust**. If you trust your JS code and F# code, then maybe it's ok to do things together without further checks. Maybe.
 
 :::warning
-Disclaimer: use this at your own risks
+Disclaimer: use this at your own risk
 :::
 
 #### What is dynamic typing?
+
 Fable.Core.JsInterop implements the F# dynamic operators so you can easily access an object property by name (without static check) as follows:
 
 ```fsharp
 open Fable.Core.JsInterop
 
 printfn "Value: %O" jsObject?myProperty
+// JS: jsObject?myProperty
 
 let pname = "myProperty"
 
-printfn "Value: %O" jsObject?(pname) // Access with a string reference
+printfn "Value: %O" jsObject?(pname) // Access with a reference
+// JS: jsObject[pname]
 
 jsObject?myProperty <- 5 // Assignment is also possible
 ```
@@ -363,7 +425,7 @@ When you combine the dynamic operator with application, Fable will destructure t
 
 ```fsharp
 let result = jsObject?myMethod(1, 2)
-// var result = jsObject.myMethod(1, 2)
+// JS: jsObject.myMethod(1, 2)
 
 chart
     ?width(768.)
@@ -373,7 +435,6 @@ chart
         chart?selectAll("rect")?on("click", fun sender args ->
             Browser.console.log("click!", args))
 
-// will generate the following js code
 // chart
 //     .width(768)
 //     .height(480)
@@ -385,13 +446,13 @@ chart
 //      });
 ```
 
-> Note that in order to make this possible, the output of the ? is an applicable value. If you don't want this behaviour, `unbox` or the `!!` dynamic cast operator: `let myValue: int = !!myObj?otherMethod("foo", "bar")`
-
 When you have to call a function with the new keyword in JS, use `createNew`.
 
 ```fsharp
 open Fable.Core.JsInterop
-let instance = createNew jsObject?myMethod(1, 2)
+
+let instance = createNew jsObject(1, 2)
+// JS: new jsObject(1, 2)
 ```
 
 If you prefer member extensions rather than operators for dynamic typing, you can open `Fable.Core.DynamicExtensions` to have the methods `.Item` and `.Invoke` available on any object.
