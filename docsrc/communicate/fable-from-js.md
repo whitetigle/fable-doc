@@ -45,7 +45,7 @@ module Foo =
     let add x y = x + y
 
 module Bar =
-    let add x y = x * y    
+    let add x y = x * y
 ```
 
 ## Common types and objects
@@ -79,7 +79,7 @@ type MyClass(value: float) =
     member __.Value = value
     interface IMyInterface with
         member __.Square() = value * value
-    
+
 let createRecord(value: int) =
     { Value = value
       Add = fun x y -> x + y }
@@ -145,14 +145,14 @@ console.log(sayHelloFable());
 
 For better or worse, Typescript wants to check your imported modules and because it doesn't know a thing of F#, it will complain if you try to import an .fs file:
 
-```typescript
+```ts
 // Typescript will complain because it cannot read the file
 import { sayHelloFable } from "./HelloFable.fs"
 ```
 
 To appease the Typescript compiler, we need a [declaration file](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), which also gives the opportunity to tell Typescript what is actually exported by our Fable code. If you place a `HelloFable.d.ts` file like the following, the import above will work:
 
-```typescript
+```ts
 // Unfortunately declaration files don't accept relative paths
 // so we just use the * wildcard
 declare module "*HelloFable.fs" {
@@ -184,7 +184,7 @@ For instance:
 
 This just tell webpack that we want our Fable code to be available from a global variable named `MyFableLib`. That's it!
 
-> Only the public functions and values in the **last file of the project** will be exposed. 
+> Only the public functions and values in the **last file of the project** will be exposed.
 
 #### Let's try!
 

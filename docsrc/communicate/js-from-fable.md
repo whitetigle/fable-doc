@@ -358,7 +358,7 @@ let data =
 
 A similar effect can be achieved with the new F# [anonymous records](https://devblogs.microsoft.com/dotnet/announcing-f-4-6-preview/):
 
-```
+```fsharp
 let data =
     {| todos = Storage.fetch()
        editedTodo = Option<Todo>.None

@@ -70,28 +70,26 @@ var nacara = {};
 <li>Functions and values in the root module</li>
 </ul>
 <p>What's a root module? Because F# accepts multiple modules in the same file, we consider the root module the first one containing actual members and is not nested by any other.</p>
-<pre><code class="language-fsharp">// It doesn't matter if we have a long namespace, Fable only starts
-// counting when it finds actual code
-module A.Long.Namespace.RootModule
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A0A1A7;font-style: italic">// It doesn&#039;t matter if we have a long namespace, Fable only starts</span>
+<span style="color: #A0A1A7;font-style: italic">// counting when it finds actual code</span>
+<span style="color: #A626A4">module</span><span style="color: #4078F2"> A.Long.Namespace.RootModule</span>
 
-// The name of this function will be the same in JS
-let add (x: int) (y: int) = x + y
+<span style="color: #A0A1A7;font-style: italic">// The name of this function will be the same in JS</span>
+<span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">add</span><span style="color: #383A42"> </span><span style="color: #A626A4">(</span><span style="color: #383A42">x</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">(</span><span style="color: #383A42">y</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">=</span><span> x </span><span style="color: #A626A4">+</span><span> y</span>
 
-module Nested =
-    // This will be prefixed with the name of the module in JS
-    let add (x: int) (y: int) = x * y
-</code></pre>
+<span style="color: #A626A4">module</span><span style="color: #4078F2"> Nested </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A0A1A7;font-style: italic">// This will be prefixed with the name of the module in JS</span>
+<span>    </span><span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">add</span><span style="color: #383A42"> </span><span style="color: #A626A4">(</span><span style="color: #383A42">x</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">(</span><span style="color: #383A42">y</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">=</span><span> x </span><span style="color: #A626A4">*</span><span> y</span></code></pre>
 <p>Sometimes it's possible to have more than one file root module in F#, in that case everything will be mangled. You should avoid this pattern if you want to expose code to JS:</p>
-<pre><code class="language-fsharp">namespace SharedNamespace
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">namespace</span><span style="color: #4078F2"> SharedNamespace</span>
 
-// Here both functions will be mangled
-// to prevent name conflicts
-module Foo =
-    let add x y = x + y
+<span style="color: #A0A1A7;font-style: italic">// Here both functions will be mangled</span>
+<span style="color: #A0A1A7;font-style: italic">// to prevent name conflicts</span>
+<span style="color: #A626A4">module</span><span style="color: #4078F2"> Foo </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">add</span><span style="color: #383A42"> x y </span><span style="color: #A626A4">=</span><span> x </span><span style="color: #A626A4">+</span><span> y</span>
 
-module Bar =
-    let add x y = x * y    
-</code></pre>
+<span style="color: #A626A4">module</span><span style="color: #4078F2"> Bar </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">add</span><span style="color: #383A42"> x y </span><span style="color: #A626A4">=</span><span> x </span><span style="color: #A626A4">*</span><span> y</span></code></pre>
 <h2><a href="#common-types-and-objects" aria-hidden="true" style="visibility:visible"><span class="anchor" id="common-types-and-objects"></span>#</a> Common types and objects</h2>
 <p>Some F#/.NET types have <a href="/fable-doc/dotnet/compatibility.html">counterparts in JS</a>. Fable takes advantage of this to compile to native types that are more performant and reduce bundle size. You can also use this to improve interop when exchanging data between F# and JS. The most important common types are:</p>
 <ul>
@@ -110,77 +108,69 @@ module Bar =
 <ul>
 <li><strong>Objects</strong>: As seen above, only record fields and interface members will be attached to objects without name mangling. Take this into account when sending to or receiving an object from JS.</li>
 </ul>
-<pre><code class="language-fsharp">type MyRecord =
-    { Value: int
-      Add: int -&gt; int -&gt; int }
-    member this.FiveTimes() =
-        this.Value * 5
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">type</span><span> </span><span style="color: #C18401">MyRecord</span><span> </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">{</span><span> Value</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span>
+<span>      Add</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int </span><span style="color: #A626A4">-&gt;</span><span style="color: #C18401"> int </span><span style="color: #A626A4">-&gt;</span><span style="color: #C18401"> int </span><span style="color: #A626A4">}</span>
+<span>    </span><span style="color: #A626A4">member</span><span> </span><span style="color: #E45649">this.FiveTimes</span><span style="color: #986801">()</span><span> </span><span style="color: #A626A4">=</span>
+<span>        this.Value </span><span style="color: #A626A4">*</span><span> </span><span style="color: #986801">5</span>
 
-type IMyInterface =
-    abstract Square: unit -&gt; float
+<span style="color: #A626A4">type</span><span> </span><span style="color: #C18401">IMyInterface</span><span> </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">abstract</span><span> Square</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">unit</span><span> </span><span style="color: #A626A4">-&gt;</span><span> </span><span style="color: #C18401">float</span>
 
-type MyClass(value: float) =
-    member __.Value = value
-    interface IMyInterface with
-        member __.Square() = value * value
-    
-let createRecord(value: int) =
-    { Value = value
-      Add = fun x y -&gt; x + y }
+<span style="color: #A626A4">type</span><span> </span><span style="color: #C18401">MyClass</span><span style="color: #A626A4">(</span><span style="color: #383A42">value</span><span style="color: #A626A4">:</span><span style="color: #C18401"> float</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">member</span><span> </span><span style="color: #E45649">__.Value</span><span> </span><span style="color: #A626A4">=</span><span> value</span>
+<span>    </span><span style="color: #A626A4">interface</span><span> IMyInterface </span><span style="color: #A626A4">with</span>
+<span>        </span><span style="color: #A626A4">member</span><span> </span><span style="color: #E45649">__.Square</span><span style="color: #986801">()</span><span> </span><span style="color: #A626A4">=</span><span> value </span><span style="color: #A626A4">*</span><span> value</span>
 
-let createClass(value: float) =
-    MyClass(value)
-</code></pre>
-<pre><code class="language-js">import { createRecord, createClass } from &quot;./Tests.fs&quot;
+<span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">createRecord</span><span style="color: #A626A4">(</span><span style="color: #383A42">value</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">{</span><span> Value </span><span style="color: #A626A4">=</span><span> value</span>
+<span>      Add </span><span style="color: #A626A4">=</span><span> </span><span style="color: #A626A4">fun</span><span style="color: #383A42"> x y </span><span style="color: #A626A4">-&gt;</span><span> x </span><span style="color: #A626A4">+</span><span> y </span><span style="color: #A626A4">}</span>
 
-var record = createRecord(2);
+<span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">createClass</span><span style="color: #A626A4">(</span><span style="color: #383A42">value</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">float</span><span style="color: #A626A4">)</span><span> </span><span style="color: #A626A4">=</span>
+<span>    MyClass</span><span style="color: #A626A4">(</span><span>value</span><span style="color: #A626A4">)</span></code></pre>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">import</span><span> </span><span style="color: #383A42">{</span><span> </span><span style="color: #E45649">createRecord</span><span style="color: #383A42">,</span><span> </span><span style="color: #E45649">createClass</span><span> </span><span style="color: #383A42">}</span><span> </span><span style="color: #A626A4">from</span><span> </span><span style="color: #50A14F">&quot;./Tests.fs&quot;</span>
 
-// Ok, we're calling record fields
-record.Add(record.Value, 2); // 4
+<span style="color: #A626A4">var</span><span> </span><span style="color: #383A42">record</span><span> </span><span style="color: #0184BC">=</span><span> </span><span style="color: #4078F2">createRecord</span><span style="color: #383A42">(</span><span style="color: #986801">2</span><span style="color: #383A42">);</span>
 
-// Fails, this member is not actually attached to the object
-record.FiveTimes();
+<span style="color: #A0A1A7;font-style: italic">// Ok, we&#039;re calling record fields</span>
+<span style="color: #E45649">record</span><span style="color: #383A42">.</span><span style="color: #4078F2">Add</span><span style="color: #383A42">(</span><span style="color: #E45649">record</span><span style="color: #383A42">.</span><span style="color: #E45649">Value</span><span style="color: #383A42">,</span><span> </span><span style="color: #986801">2</span><span style="color: #383A42">);</span><span> </span><span style="color: #A0A1A7;font-style: italic">// 4</span>
 
-var myClass = createClass(5);
+<span style="color: #A0A1A7;font-style: italic">// Fails, this member is not actually attached to the object</span>
+<span style="color: #E45649">record</span><span style="color: #383A42">.</span><span style="color: #4078F2">FiveTimes</span><span style="color: #383A42">();</span>
 
-// Fails
-myClass.Value;
+<span style="color: #A626A4">var</span><span> </span><span style="color: #383A42">myClass</span><span> </span><span style="color: #0184BC">=</span><span> </span><span style="color: #4078F2">createClass</span><span style="color: #383A42">(</span><span style="color: #986801">5</span><span style="color: #383A42">);</span>
 
-// Ok, this is an interface member
-myClass.Square(); // 25
-</code></pre>
+<span style="color: #A0A1A7;font-style: italic">// Fails</span>
+<span style="color: #E45649">myClass</span><span style="color: #383A42">.</span><span style="color: #E45649">Value</span><span style="color: #383A42">;</span>
+
+<span style="color: #A0A1A7;font-style: italic">// Ok, this is an interface member</span>
+<span style="color: #E45649">myClass</span><span style="color: #383A42">.</span><span style="color: #4078F2">Square</span><span style="color: #383A42">();</span><span> </span><span style="color: #A0A1A7;font-style: italic">// 25</span></code></pre>
 <h2><a href="#functions-automatic-uncurrying" aria-hidden="true" style="visibility:visible"><span class="anchor" id="functions-automatic-uncurrying"></span>#</a> Functions: automatic uncurrying</h2>
 <p>Fable will automatically uncurry functions in many situations: when they're passed as functions, when set as a record field... So in most cases you can use pass them to and from JS as if they were functions without curried arguments.</p>
-<pre><code class="language-fsharp">let execute (f: int-&gt;int-&gt;int) x y =
-    f x y
-</code></pre>
-<pre><code class="language-js">import { execute } from &quot;./TestFunctions.fs&quot;
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">execute</span><span style="color: #383A42"> </span><span style="color: #A626A4">(</span><span style="color: #383A42">f</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">int</span><span style="color: #A626A4">-&gt;</span><span style="color: #C18401">int</span><span style="color: #A626A4">-&gt;</span><span style="color: #C18401">int</span><span style="color: #A626A4">)</span><span> </span><span style="color: #383A42">x y </span><span style="color: #A626A4">=</span>
+<span>    f x y</span></code></pre>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">import</span><span> </span><span style="color: #383A42">{</span><span> </span><span style="color: #E45649">execute</span><span> </span><span style="color: #383A42">}</span><span> </span><span style="color: #A626A4">from</span><span> </span><span style="color: #50A14F">&quot;./TestFunctions.fs&quot;</span>
 
-execute(function (x, y) { return x * y }, 3, 5) // 15
-</code></pre>
+<span style="color: #4078F2">execute</span><span style="color: #383A42">(</span><span style="color: #A626A4">function</span><span> </span><span style="color: #383A42">(x,</span><span> </span><span style="color: #383A42">y)</span><span> </span><span style="color: #383A42">{</span><span> </span><span style="color: #A626A4">return</span><span> </span><span style="color: #383A42">x</span><span> </span><span style="color: #0184BC">*</span><span> </span><span style="color: #383A42">y</span><span> </span><span style="color: #383A42">},</span><span> </span><span style="color: #986801">3</span><span style="color: #383A42">,</span><span> </span><span style="color: #986801">5</span><span style="color: #383A42">)</span><span> </span><span style="color: #A0A1A7;font-style: italic">// 15</span></code></pre>
 <h2><a href="#call-fable-source-code-from-a-js-file" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-source-code-from-a-js-file"></span>#</a> Call Fable source code from a JS file</h2>
 <p>Webpack makes it very easy to include files in different programming languages in your project by using loaders. Because in a Fable project we assume you're already using the <a href="https://www.npmjs.com/package/fable-loader">fable-loader</a>, if you have a file like the following:</p>
-<pre><code class="language-fsharp">module HelloFable
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">module</span><span style="color: #4078F2"> HelloFable</span>
 
-let sayHelloFable() = &quot;Hello Fable!&quot;
-</code></pre>
+<span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">sayHelloFable</span><span style="color: #986801">()</span><span> </span><span style="color: #A626A4">=</span><span> </span><span style="color: #50A14F">&quot;Hello Fable!&quot;</span></code></pre>
 <p>Importing and using it from JS is as simple as if it were another JS file:</p>
-<pre><code class="language-js">import { sayHelloFable } from &quot;./HelloFable.fs&quot;
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">import</span><span> </span><span style="color: #383A42">{</span><span> </span><span style="color: #E45649">sayHelloFable</span><span> </span><span style="color: #383A42">}</span><span> </span><span style="color: #A626A4">from</span><span> </span><span style="color: #50A14F">&quot;./HelloFable.fs&quot;</span>
 
-console.log(sayHelloFable());
-</code></pre>
+<span style="color: #C18401">console</span><span style="color: #383A42">.</span><span style="color: #0184BC">log</span><span style="color: #383A42">(</span><span style="color: #4078F2">sayHelloFable</span><span style="color: #383A42">());</span></code></pre>
 <h3><a href="#importing-fable-code-from-typescript" aria-hidden="true" style="visibility:visible"><span class="anchor" id="importing-fable-code-from-typescript"></span>#</a> Importing Fable code from Typescript</h3>
 <p>For better or worse, Typescript wants to check your imported modules and because it doesn't know a thing of F#, it will complain if you try to import an .fs file:</p>
-<pre><code class="language-typescript">// Typescript will complain because it cannot read the file
-import { sayHelloFable } from &quot;./HelloFable.fs&quot;
-</code></pre>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A0A1A7;font-style: italic">// Typescript will complain because it cannot read the file</span>
+<span style="color: #A626A4">import</span><span> </span><span style="color: #383A42">{</span><span> </span><span style="color: #E45649">sayHelloFable</span><span> </span><span style="color: #383A42">}</span><span> </span><span style="color: #A626A4">from</span><span> </span><span style="color: #50A14F">&quot;./HelloFable.fs&quot;</span></code></pre>
 <p>To appease the Typescript compiler, we need a <a href="https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html">declaration file</a>, which also gives the opportunity to tell Typescript what is actually exported by our Fable code. If you place a <code>HelloFable.d.ts</code> file like the following, the import above will work:</p>
-<pre><code class="language-typescript">// Unfortunately declaration files don't accept relative paths
-// so we just use the * wildcard
-declare module &quot;*HelloFable.fs&quot; {
-    function sayHelloFable(): string;
-}
-</code></pre>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A0A1A7;font-style: italic">// Unfortunately declaration files don&#039;t accept relative paths</span>
+<span style="color: #A0A1A7;font-style: italic">// so we just use the * wildcard</span>
+<span style="color: #A626A4">declare</span><span> </span><span style="color: #A626A4">module</span><span> </span><span style="color: #50A14F">&quot;*HelloFable.fs&quot;</span><span> </span><span style="color: #383A42">{</span>
+<span>    </span><span style="color: #A626A4">function</span><span> </span><span style="color: #4078F2">sayHelloFable</span><span style="color: #383A42">()</span><span style="color: #0184BC">:</span><span> </span><span style="color: #0184BC">string</span><span style="color: #383A42">;</span>
+<span style="color: #383A42">}</span></code></pre>
 <h2><a href="#call-fable-compiled-code-as-a-library" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-compiled-code-as-a-library"></span>#</a> Call Fable compiled code as a library</h2>
 <h3><a href="#from-your-web-app" aria-hidden="true" style="visibility:visible"><span class="anchor" id="from-your-web-app"></span>#</a> ..from your web app</h3>
 <p>If your project is a web project and you're using webpack, it just takes 2 lines of code in the webpack configuration in the <code>output</code> section of <code>module.exports</code>:</p>

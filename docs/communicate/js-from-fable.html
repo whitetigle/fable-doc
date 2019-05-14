@@ -296,11 +296,10 @@ var nacara = {};
 <span>        </span><span style="color: #50A14F">&quot;visibility&quot;</span><span> </span><span style="color: #A626A4">==&gt;</span><span> </span><span style="color: #50A14F">&quot;all&quot;</span>
 <span>    </span><span style="color: #A626A4">]</span></code></pre>
 <p>A similar effect can be achieved with the new F# <a href="https://devblogs.microsoft.com/dotnet/announcing-f-4-6-preview/">anonymous records</a>:</p>
-<pre><code>let data =
-    {| todos = Storage.fetch()
-       editedTodo = Option&lt;Todo&gt;.None
-       visibility = &quot;all&quot; |}
-</code></pre>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">data</span><span> </span><span style="color: #A626A4">=</span>
+<span>    </span><span style="color: #A626A4">{|</span><span> todos </span><span style="color: #A626A4">=</span><span> Storage.fetch</span><span style="color: #986801">()</span>
+<span>       editedTodo </span><span style="color: #A626A4">=</span><span> Option</span><span style="color: #A626A4">&lt;</span><span>Todo</span><span style="color: #A626A4">&gt;</span><span>.None</span>
+<span>       visibility </span><span style="color: #A626A4">=</span><span> </span><span style="color: #50A14F">&quot;all&quot;</span><span> </span><span style="color: #A626A4">|}</span></code></pre>
 <p>You can also create a JS object from an interface by using <code>createEmpty</code> and then assigning manually:</p>
 <pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">type</span><span> </span><span style="color: #C18401">IMyInterface</span><span> </span><span style="color: #A626A4">=</span>
 <span>    </span><span style="color: #A626A4">abstract</span><span> foo</span><span style="color: #A626A4">:</span><span> </span><span style="color: #C18401">string</span><span> </span><span style="color: #A626A4">with</span><span> get</span><span style="color: #A626A4">,</span><span> set</span>
