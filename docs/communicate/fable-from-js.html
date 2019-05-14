@@ -58,8 +58,134 @@ var nacara = {};
 </script></head><body><nav class="navbar is-fixed-top"><div class="container"><div class="navbar-brand"><div class="navbar-item title is-4">Fable</div></div><div class="navbar-start"></div><div class="navbar-end"><a class="navbar-item" href="https://fable.io/repl/" target="_self"><span>Try it out</span></a><a class="navbar-item" href="https://gitter.im/fable-compiler/Fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-gitter fa-lg"></i></span><span>Support</span></a><a class="navbar-item" href="https://github.com/fable-compiler/fable" target="_blank" style="color:#24292e"><span class="icon"><i class=" fab fa-github fa-lg"></i></span></a><a class="navbar-item" href="https://twitter.com/FableCompiler" target="_blank" style="color:#55acee"><span class="icon"><i class=" fab fa-twitter fa-lg"></i></span></a></div></div></nav><div class="container"><div class="columns is-gapless"><div class="column is-2-desktop is-3-touch full-height-scrollable-content"><aside class="menu" style="margin-top:3.25rem"><p class="menu-label">Introduction</p><ul class="menu-list"><li><a class="" href="/fable-doc/introduction/foreword.html" data-menu-id="introduction/foreword">Foreword</a></li><li><a class="" href="/fable-doc/introduction/net-users-read-this.html" data-menu-id="introduction/net-users-read-this">Are you a .NET developer?</a></li><li><a class="" href="/fable-doc/introduction/js-users-read-this.html" data-menu-id="introduction/js-users-read-this">Are you a JS developer?</a></li></ul><p class="menu-label">Fable in 3 steps</p><ul class="menu-list"><li><a class="" href="/fable-doc/3-steps/discover.html" data-menu-id="3-steps/discover">What is Fable?</a></li><li><a class="" href="/fable-doc/3-steps/setup.html" data-menu-id="3-steps/setup">Setup</a></li><li><a class="" href="/fable-doc/3-steps/choose-a-template.html" data-menu-id="3-steps/choose-a-template">Start a new project using samples</a></li></ul><p class="menu-label">Your Fable project</p><ul class="menu-list"><li><a class="" href="/fable-doc/your-fable-project/add-a-fsharp-file.html" data-menu-id="your-fable-project/add-a-fsharp-file">Add a new F# file</a></li><li><a class="" href="/fable-doc/your-fable-project/use-a-fable-library.html" data-menu-id="your-fable-project/use-a-fable-library">Use a Fable library</a></li><li><a class="" href="/fable-doc/your-fable-project/build-and-run.html" data-menu-id="your-fable-project/build-and-run">Build &amp; Run</a></li></ul><p class="menu-label">Communicate with Javascript</p><ul class="menu-list"><li><a class="" href="/fable-doc/communicate/js-from-fable.html" data-menu-id="communicate/js-from-fable">Call JS from Fable</a></li><li><a class="" href="/fable-doc/communicate/fable-from-js.html" data-menu-id="communicate/fable-from-js">Call Fable from JavaScript</a></li><li><a class="" href="/fable-doc/communicate/numbers.html" data-menu-id="communicate/numbers">Numbers</a></li></ul><p class="menu-label">From .NET to Fable</p><ul class="menu-list"><li><a class="" href="/fable-doc/dotnet/numbers.html" data-menu-id="dotnet/numbers">Numeric Types</a></li><li><a class="" href="/fable-doc/dotnet/compatibility.html" data-menu-id="dotnet/compatibility">.NET and F# Compatibility</a></li></ul><p class="menu-label">Miscellaneous</p><ul class="menu-list"><li><a class="" href="/fable-doc/miscellaneous/official-samples.html" data-menu-id="miscellaneous/official-samples">Check official samples</a></li><li><a class="" href="/fable-doc/miscellaneous/awesome-list.html" data-menu-id="miscellaneous/awesome-list">Awesome Fable</a></li><li><a class="" href="/fable-doc/miscellaneous/fable-in-videos.html" data-menu-id="miscellaneous/fable-in-videos">Fable in videos</a></li></ul></aside></div><div class="column is-8-desktop is-9-touch full-height-scrollable-content" style="scroll-behavior:smooth"><section class="section"><div class="content"><div><p></p>
 <p>Sometimes, we'd like to use the power of Fable into our JavaScript apps. For instance, to create a new
 <a href="https://nodered.org/docs/creating-nodes/first-node">js node in Node-RED</a> or call some handy F# code from our new Node.js serverless function or even call some powerful json parsing into our JavaScript app.</p>
-<p>It may allow you to play with Fable and add features, one at a time. So what does it take to call Fable from JavaScript?</p>
-<h3><a href="#call-fable-from-your-web-app" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-from-your-web-app"></span>#</a> Call fable from your web app</h3>
+<p>It may allow you to play with Fable and add features, one at a time. So what does it take to call Fable from JavaScript? First you need to understand a bit how the generated JS code looks like so you can call it correctly.</p>
+<blockquote>
+<p>Remember you can use the <a href="https://fable.io/repl/">Fable REPL</a> to easily check how the generated JS for your F# code looks like!</p>
+</blockquote>
+<h2><a href="#name-mangling" aria-hidden="true" style="visibility:visible"><span class="anchor" id="name-mangling"></span>#</a> Name mangling</h2>
+<p>Because JS doesn't support overloading or multiple modules in a single file, Fable needs mangles the name of some members to avoid clashes, which makes it difficult to call such functions or values from JS. However, there're some cases where Fable in ortder to improve interop guarantees names won't change:</p>
+<ul>
+<li>Record fields</li>
+<li>Interface members</li>
+<li>Functions and values in the root module</li>
+</ul>
+<p>What's a root module? Because F# accepts multiple modules in the same file, we consider the root module the first one containing actual members and is not nested by any other.</p>
+<pre><code class="language-fsharp">// It doesn't matter if we have a long namespace, Fable only starts
+// counting when it finds actual code
+module A.Long.Namespace.RootModule
+
+// The name of this function will be the same in JS
+let add (x: int) (y: int) = x + y
+
+module Nested =
+    // This will be prefixed with the name of the module in JS
+    let add (x: int) (y: int) = x * y
+</code></pre>
+<p>Sometimes it's possible to have more than one file root module in F#, in that case everything will be mangled. You should avoid this pattern if you want to expose code to JS:</p>
+<pre><code class="language-fsharp">namespace SharedNamespace
+
+// Here both functions will be mangled
+// to prevent name conflicts
+module Foo =
+    let add x y = x + y
+
+module Bar =
+    let add x y = x * y    
+</code></pre>
+<h2><a href="#common-types-and-objects" aria-hidden="true" style="visibility:visible"><span class="anchor" id="common-types-and-objects"></span>#</a> Common types and objects</h2>
+<blockquote>
+<p>TODO: Add link to compatibility documents</p>
+</blockquote>
+<p>Some F#/.NET types have counterparts in JS. Fable takes advantage of this to compile to native types that are more performant and reduce bundle size. You can also use this to improve interop when exchanging data between F# and JS. The most important common types are:</p>
+<ul>
+<li><strong>Strings and booleans</strong> behave the same in F# and JS.</li>
+<li><strong>Numeric types</strong> compile to JS numbers, except for <code>long</code>, <code>decimal</code> and <code>bigint</code>.</li>
+<li><strong>Arrays</strong> (and <code>ResizeArray</code>) compile to JS arrays. <em>Numeric arrays</em> compile to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">Typed Arrays</a> in most situations, thouth this shouldn't make a difference for most common operations like indexing, iterating or mapping.</li>
+<li>Any <strong>IEnumerable</strong> (or <code>seq</code>) can be traversed in JS as if it were an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">Iterable</a>.</li>
+<li><strong>DateTime</strong> compiles to JS <code>Date</code>.</li>
+<li><strong>Regex</strong> compiles to JS <code>RegExp</code>.</li>
+<li>Mutable <strong>dictionaries</strong> (not F# maps) compile to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">ES2015 Map</a>.</li>
+<li>Mutable <strong>hashsets</strong> (not F# sets) compile to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">ES2015 Set</a>.</li>
+</ul>
+<blockquote>
+<p>If the dictionary or hashset requires custom or structural equality, Fable will generate a custom type, but it will share the same properties as JS maps and sets.</p>
+</blockquote>
+<ul>
+<li><strong>Objects</strong>: As seen above, only record fields and interface members will be attached to objects without name mangling. Take this into account when sending to or receiving an object from JS.</li>
+</ul>
+<pre><code class="language-fsharp">type MyRecord =
+    { Value: int
+      Add: int -&gt; int -&gt; int }
+    member this.FiveTimes() =
+        this.Value * 5
+
+type IMyInterface =
+    abstract Square: unit -&gt; float
+
+type MyClass(value: float) =
+    member __.Value = value
+    interface IMyInterface with
+        member __.Square() = value * value
+    
+let createRecord(value: int) =
+    { Value = value
+      Add = fun x y -&gt; x + y }
+
+let createClass(value: float) =
+    MyClass(value)
+</code></pre>
+<pre><code class="language-js">import { createRecord, createClass } from &quot;./Tests.fs&quot;
+
+var record = createRecord(2);
+
+// Ok, we're calling record fields
+record.Add(record.Value, 2); // 4
+
+// Fails, this member is not actually attached to the object
+record.FiveTimes();
+
+var myClass = createClass(5);
+
+// Fails
+myClass.Value;
+
+// Ok, this is an interface member
+myClass.Square(); // 25
+</code></pre>
+<h2><a href="#functions-automatic-uncurrying" aria-hidden="true" style="visibility:visible"><span class="anchor" id="functions-automatic-uncurrying"></span>#</a> Functions: automatic uncurrying</h2>
+<p>Fable will automatically uncurry functions in many situations: when they're passed as functions, when set as a record field... So in most cases you can use pass them to and from JS as if they were functions without curried arguments.</p>
+<pre><code class="language-fsharp">let execute (f: int-&gt;int-&gt;int) x y =
+    f x y
+</code></pre>
+<pre><code class="language-js">import { execute } from &quot;./TestFunctions.fs&quot;
+
+execute(function (x, y) { return x * y }, 3, 5) // 15
+</code></pre>
+<h2><a href="#call-fable-source-code-from-a-js-file" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-source-code-from-a-js-file"></span>#</a> Call Fable source code from a JS file</h2>
+<p>Webpack makes it very easy to include files in different programming languages in your project by using loaders. Because in a Fable project we assume you're already using the <a href="https://www.npmjs.com/package/fable-loader">fable-loader</a>, if you have a file like the following:</p>
+<pre><code class="language-fsharp">module HelloFable
+
+let sayHelloFable() = &quot;Hello Fable!&quot;
+</code></pre>
+<p>Importing and using it from JS is as simple as if it were another JS file:</p>
+<pre><code class="language-js">import { sayHelloFable } from &quot;./HelloFable.fs&quot;
+
+console.log(sayHelloFable());
+</code></pre>
+<h3><a href="#importing-fable-code-from-typescript" aria-hidden="true" style="visibility:visible"><span class="anchor" id="importing-fable-code-from-typescript"></span>#</a> Importing Fable code from Typescript</h3>
+<p>For better or worse, Typescript wants to check your imported modules and because it doesn't know a thing of F#, it will complain if you try to import an .fs file:</p>
+<pre><code class="language-typescript">// Typescript will complain because it cannot read the file
+import { sayHelloFable } from &quot;./HelloFable.fs&quot;
+</code></pre>
+<p>To appease the Typescript compiler, we need a <a href="https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html">declaration file</a>, which also gives the opportunity to tell Typescript what is actually exported by our Fable code. If you place a <code>HelloFable.d.ts</code> file like the following, the import above will work:</p>
+<pre><code class="language-typescript">// Unfortunately declaration files don't accept relative paths
+// so we just use the * wildcard
+declare module &quot;*HelloFable.fs&quot; {
+    function sayHelloFable(): string;
+}
+</code></pre>
+<h2><a href="#call-fable-compiled-code-as-a-library" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-compiled-code-as-a-library"></span>#</a> Call Fable compiled code as a library</h2>
+<h3><a href="#from-your-web-app" aria-hidden="true" style="visibility:visible"><span class="anchor" id="from-your-web-app"></span>#</a> ..from your web app</h3>
 <p>If your project is a web project and you're using webpack, it just takes 2 lines of code in the webpack configuration in the <code>output</code> section of <code>module.exports</code>:</p>
 <pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span>libraryTarget: </span><span style="color: #50A14F">&#039;var&#039;</span><span style="color: #383A42">,</span>
 <span>library: </span><span style="color: #50A14F">&#039;MyFableLib&#039;</span></code></pre>
@@ -70,15 +196,17 @@ var nacara = {};
 <span>        libraryTarget: </span><span style="color: #50A14F">&#039;var&#039;</span><span style="color: #383A42">,</span>
 <span>        library: </span><span style="color: #50A14F">&#039;MyFableLib&#039;</span>
 <span>    </span><span style="color: #383A42">},</span></code></pre>
-<p>This just tell webpack that we want our Fable code to be available from a <code>MyFableLib</code> context. That's it!</p>
+<p>This just tell webpack that we want our Fable code to be available from a global variable named <code>MyFableLib</code>. That's it!</p>
+<blockquote>
+<p>Only the public functions and values in the <strong>last file of the project</strong> will be exposed.</p>
+</blockquote>
 <h4><a href="#lets-try" aria-hidden="true" style="visibility:visible"><span class="anchor" id="lets-try"></span>#</a> Let's try!</h4>
-<p>Let's create a very simple Fable app:</p>
-<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">module</span><span style="color: #4078F2"> App</span>
-<span style="color: #A626A4">open</span><span> </span><span style="color: #4078F2">Fable.Core</span>
-<span style="color: #A626A4">let</span><span> </span><span style="color: #E45649">sayHelloFable</span><span style="color: #986801">()</span><span> </span><span style="color: #A626A4">=</span><span> </span><span style="color: #50A14F">&quot;Hello Fable!&quot;</span></code></pre>
-<p>In our webpack config let's add:</p>
-<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span>libraryTarget: </span><span style="color: #50A14F">&#039;var&#039;</span><span style="color: #383A42">,</span>
-<span>library: </span><span style="color: #50A14F">&#039;OMGFable&#039;</span></code></pre>
+<p>Let's compile the HelloFable app from above with webpack.config.js that includes the following:</p>
+<pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span>output: </span><span style="color: #383A42">{</span>
+<span>    </span><span style="color: #0184BC">...</span>
+<span>    libraryTarget: </span><span style="color: #50A14F">&#039;var&#039;</span><span style="color: #383A42">,</span>
+<span>    library: </span><span style="color: #50A14F">&#039;OMGFable&#039;</span>
+<span style="color: #383A42">}</span></code></pre>
 <p>Now let's try this directly in our <code>index.html</code> file:</p>
 <pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #383A42">&lt;</span><span style="color: #E45649">body</span><span style="color: #383A42">&gt;</span>
 <span>    </span><span style="color: #383A42">&lt;</span><span style="color: #E45649">script</span><span style="color: #383A42"> </span><span style="color: #986801">src</span><span style="color: #383A42">=</span><span style="color: #50A14F">&quot;bundle.js&quot;</span><span style="color: #383A42">&gt;&lt;/</span><span style="color: #E45649">script</span><span style="color: #383A42">&gt;</span>
@@ -87,7 +215,7 @@ var nacara = {};
 <span>    </span><span style="color: #383A42">&lt;/</span><span style="color: #E45649">script</span><span style="color: #383A42">&gt;</span>
 <span style="color: #383A42">&lt;/</span><span style="color: #E45649">body</span><span style="color: #383A42">&gt;</span></code></pre>
 <p>Et voilà! We're done! You can find a <a href="https://github.com/fable-compiler/fable2-samples/tree/master/interopFableFromJS">full sample here</a>.</p>
-<h3><a href="#call-fable-from-your-nodejs-app" aria-hidden="true" style="visibility:visible"><span class="anchor" id="call-fable-from-your-nodejs-app"></span>#</a> Call Fable from your Node.js app</h3>
+<h3><a href="#from-your-nodejs-app" aria-hidden="true" style="visibility:visible"><span class="anchor" id="from-your-nodejs-app"></span>#</a> ...from your Node.js app</h3>
 <p>Basically it's the same thing. If you want to see a complete sample using a <code>commonjs</code> output instead of <code>var</code> (the one we used for the web app sample, please <a href="https://github.com/fable-compiler/fable2-samples/tree/master/nodejsbundle">check this project</a>.</p>
 <p>There you'll see that we've added the following lines to the webpack config:</p>
 <pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span>    library:</span><span style="color: #50A14F">&quot;app&quot;</span><span style="color: #383A42">,</span>
@@ -96,6 +224,6 @@ var nacara = {};
 <pre style="background-color: #FAFAFA;color: ;padding: 1em"><code><span style="color: #A626A4">let</span><span> </span><span style="color: #383A42">app</span><span> </span><span style="color: #0184BC">=</span><span> </span><span style="color: #0184BC">require</span><span style="color: #383A42">(</span><span style="color: #50A14F">&quot;./App.js&quot;</span><span style="color: #383A42">);</span></code></pre>
 <h3><a href="#learn-more-about-webpack-librarytarget" aria-hidden="true" style="visibility:visible"><span class="anchor" id="learn-more-about-webpack-librarytarget"></span>#</a> Learn more about webpack <code>libraryTarget</code></h3>
 <p>If you want to know what your options are, please consult the <a href="https://webpack.js.org/configuration/output/#outputlibrarytarget">official documentation</a>.</p>
-</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"><ul class="toc-headings"><li><a href="#call-fable-from-your-web-app">Call fable from your web app</a><ul class="toc-headings"><li><a href="#lets-try">Let's try!</a></li></ul></li><li><a href="#call-fable-from-your-nodejs-app">Call Fable from your Node.js app</a></li><li><a href="#learn-more-about-webpack-librarytarget">Learn more about webpack `libraryTarget`</a></li></ul></nav></div></div></div><script type="text/javascript">
+</div></div></section></div><div class="column is-2-desktop full-height-scrollable-content        is-hidden-touch     "><div><nav class="toc-container"><ul class="toc-headings"><div class="toc-label"><a href="#name-mangling">Name mangling</a></div></li><div class="toc-label"><a href="#common-types-and-objects">Common types and objects</a></div></li><div class="toc-label"><a href="#functions-automatic-uncurrying">Functions: automatic uncurrying</a></div></li><div class="toc-label"><a href="#call-fable-source-code-from-a-js-file">Call Fable source code from a JS file</a></div><ul class="toc-headings"><li><a href="#importing-fable-code-from-typescript">Importing Fable code from Typescript</a></li></ul></li><div class="toc-label"><a href="#call-fable-compiled-code-as-a-library">Call Fable compiled code as a library</a></div><ul class="toc-headings"><li><a href="#from-your-web-app">..from your web app</a><ul class="toc-headings"><li><a href="#lets-try">Let's try!</a></li></ul></li><li><a href="#from-your-nodejs-app">...from your Node.js app</a></li><li><a href="#learn-more-about-webpack-librarytarget">Learn more about webpack `libraryTarget`</a></li></ul></li></ul></nav></div></div></div><script type="text/javascript">
 nacara.pageId = 'communicate/fable-from-js';
                 </script></div></body></html>
