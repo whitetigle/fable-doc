@@ -50,9 +50,7 @@ module Bar =
 
 ## Common types and objects
 
-> TODO: Add link to compatibility documents
-
-Some F#/.NET types have counterparts in JS. Fable takes advantage of this to compile to native types that are more performant and reduce bundle size. You can also use this to improve interop when exchanging data between F# and JS. The most important common types are:
+Some F#/.NET types have [counterparts in JS](/fable-doc/dotnet/compatibility.html). Fable takes advantage of this to compile to native types that are more performant and reduce bundle size. You can also use this to improve interop when exchanging data between F# and JS. The most important common types are:
 
 - **Strings and booleans** behave the same in F# and JS.
 - **Numeric types** compile to JS numbers, except for `long`, `decimal` and `bigint`.
